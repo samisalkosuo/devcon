@@ -1,1 +1,65 @@
 = devcon
+
+Devcon is a container that includes quite many useful tools and languages. Container is based on https://rockylinux.org/[Rocky Linux].
+
+== Build and run
+
+* Build using:
+** `docker build -t devcon .`
+* Run using:
+** `docker run -it --rm -p 2222:22 -h devcon devcon`
+
+== Languages
+
+Version information is shown when starting and logging in to the container.
+
+* https://www.python.org/[Python]
+* https://nodejs.org/[Node.js]
+
+== Tools
+
+* Various packages. See link:setup/both/000-dnf-install.sh[packages] and link:setup/container/100-dnf-install.sh[packages]
+* https://github.com/tmux/tmux/wiki[tmux] and https://github.com/gpakosz/.tmux[.tmux config file]
+* https://www.redhat.com/en/technologies/cloud-computing/openshift[OpenShift] clients
+* https://www.terraform.io/[Terraform]
+* https://lynx.invisible-island.net/[Lynx]
+* http://w3m.sourceforge.net/[w3m]
+* https://github.com/butlerx/wetty[WeTTY]
+
+== Environment variables
+
+.Environment variables that can be used when starting the container.
+|===
+|Name|Value|Default|Description
+
+|ROOT_PASSWORD
+|any string
+|Random password
+|Set root password. Root password is written to `/root/startup-info.txt` file
+
+|DISABLE_SSHD
+|<any string>
+|N/A
+|Do not start ssh daemon.
+
+|DISPLAY
+|<X display>
+|host.docker.internal:0
+|Set display for X (default value is for Windows hosts).
+
+|WETTY_HTTP
+|<any string>
+|N/A
+|Start WeTTY using HTTP.
+
+|WETTY_HTTPS
+|<any string>
+|N/A
+|Start WeTTY using HTTPS.
+
+|WETTY_PORT
+|<port>
+|3000
+|Start WeTTY (inside container) using this port.
+
+|===

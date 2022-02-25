@@ -1,0 +1,19 @@
+= Setup
+
+Scripts to setup Linux.
+
+* Whenever there is a version information needed to install, use following:
+** `<txt>\_VERSION=<version>`
+** for example: `PYTHON_VERSION=3.10.2`
+** all variables having "\_VERSION=" are used to print version info when starting the container
+* Directories:
+** both - used both in container and non-container
+** container - only when using in container
+** non-container - only when using non-container
+* script names like `XXX-scriptname.sh`
+** where XXX starts from: 
+*** 000 when script is for both
+*** 100 when script is for container
+*** 200 when script is for non-container
+** must end with .sh
+* Execute `sh setup-everything-non-container.sh` to install everything on freshly installed RHEL based Linux.
