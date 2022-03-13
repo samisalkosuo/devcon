@@ -68,6 +68,23 @@ RUN sh -e 004-terraform-install.sh
 COPY setup/both/0100-openshift-client-install.sh .
 RUN sh -e 0100-openshift-client-install.sh
 
+#ruby install
+COPY setup/both/005-ruby-install.sh .
+RUN sh -e 005-ruby-install.sh
+
+#asciidoctor install
+COPY setup/both/006-asciidoctor-install.sh .
+RUN sh -e 006-asciidoctor-install.sh
+
+#ffmpeg install
+COPY setup/both/007-ffmpeg-install.sh .
+RUN sh -e 007-ffmpeg-install.sh
+
+#ibmcloud install
+COPY setup/both/008-ibmcloud-install.sh .
+RUN sh -e 008-ibmcloud-install.sh
+
+
 #environment variables
 COPY setup/environment.sh .
 

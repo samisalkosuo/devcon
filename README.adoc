@@ -11,20 +11,25 @@ Devcon is a container that includes quite many useful tools and languages. Conta
 
 == Languages
 
-Version information is shown when starting and logging in to the container.
+Version information is shown when starting/logging in to the container.
 
 * https://www.python.org/[Python]
 * https://nodejs.org/[Node.js]
+* https://www.ruby-lang.org/[Ruby]
 
 == Tools
 
-* Various packages. See link:setup/both/000-dnf-install.sh[packages] and link:setup/container/100-dnf-install.sh[packages]
+* Various packages. 
+** See link:setup/both/000-dnf-install.sh[packages] and link:setup/container/100-dnf-install.sh[packages]
 * https://github.com/tmux/tmux/wiki[tmux] and https://github.com/gpakosz/.tmux[.tmux config file]
 * https://www.redhat.com/en/technologies/cloud-computing/openshift[OpenShift] clients
 * https://www.terraform.io/[Terraform]
 * https://lynx.invisible-island.net/[Lynx]
 * http://w3m.sourceforge.net/[w3m]
 * https://github.com/butlerx/wetty[WeTTY]
+* https://asciidoctor.org/[Asciidoctor]
+* https://ffmpeg.org/[FFmpeg]
+* https://cloud.ibm.com/docs/cli[IBM Cloud CLI]
 
 == Environment variables
 

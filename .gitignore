@@ -1,2 +1,5 @@
+local/
 TODO*
 notes.md
+dockerfiles/
+containerfile/
