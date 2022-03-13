@@ -5,9 +5,10 @@ Devcon is a container that includes quite many useful tools and languages. Conta
 == Build and run
 
 * Build using:
-** `docker build -t devcon .`
+** `sh build-images.sh`
+** Script buils images from Dockerfiles in dockerfiles-directory.
 * Run using:
-** `docker run -it --rm -p 2222:22 -h devcon devcon`
+** `docker run -it --rm -p 2222:22 -h devcon kazhar/devcon`
 
 == Languages
 
@@ -30,6 +31,7 @@ Version information is shown when starting/logging in to the container.
 * https://asciidoctor.org/[Asciidoctor]
 * https://ffmpeg.org/[FFmpeg]
 * https://cloud.ibm.com/docs/cli[IBM Cloud CLI]
+* https://www.postgresql.org/[PostgreSQL client]
 
 == Environment variables
 

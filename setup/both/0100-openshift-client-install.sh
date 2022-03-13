@@ -1,12 +1,14 @@
 #install openshift clients
 
-OPENSHIFT_VERSION=4.8.24
+#check latest versions
+#https://mirror.openshift.com/pub/openshift-v4/clients/ocp/
+OPENSHIFT_CLIENT_VERSION=4.8.34
 
 function downloadOpenShiftClient
 {
     local __file=$1
     echo "Downloading ${__file}..."
-    local __dlurl=https://mirror.openshift.com/pub/openshift-v4/clients/ocp/$OPENSHIFT_VERSION
+    local __dlurl=https://mirror.openshift.com/pub/openshift-v4/clients/ocp/$OPENSHIFT_CLIENT_VERSION
     curl $__dlurl/${__file} > ${__file}
 
     echo "Extracting ${__file} to /usr/local/bin/..."
