@@ -19,4 +19,3 @@ psql_version=${POSTGRESQL_CLIENT_VERSION}-1PGDG.rhel8
 
 dnf -y install ${psql_package}-${psql_version}
 
-ex

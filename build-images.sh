@@ -1,5 +1,7 @@
 echo "Build all containers..."
 
+set -e 
+
 #show build progress. Values: "auto", "plain", "tty"
 export BUILDKIT_PROGRESS=plain
 
@@ -11,7 +13,7 @@ function buildImage
   local tag=$1
   local file=$2
 
-docker build -t $IMAGE_TAG_PREFIX:$tag -f $DOCKERFILE_DIR/$file .
+  docker build -t $IMAGE_TAG_PREFIX:$tag -f $DOCKERFILE_DIR/$file .
 
 }
 
@@ -26,7 +28,7 @@ buildImage nodejs 003-nodejs.dockerfile
 
 
 
-#build tools and clients images last before the main image
+#build tools and clients images before the main image
 #so that clients are always downloaded just before building the main image
 buildImage tools 998-tools.dockerfile
 buildImage clients 999-clients.dockerfile

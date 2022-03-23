@@ -21,7 +21,7 @@ RUN mkdir -p /root/host && \
 
 #====ENVIRONMENT VARIABLES SECTION START
 #set runtime environment variables
-#variables are set in devcon-shell.sh to .bash_profile 
+#devcon-shell.sh script sets variables to .bash_profile 
 #so that they are available in ssh sessions
 
 #DISPLAY env for Windows
