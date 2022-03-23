@@ -1,7 +1,7 @@
 #install python from source
 
 #check latest python: https://www.python.org
-PYTHON_VERSION=3.10.2
+PYTHON_VERSION=3.10.3
 PYTHON_VERSION_SHORT=3.10
 
 INSTALL_DIR=python-install
