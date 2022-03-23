@@ -27,3 +27,7 @@ RUN sh -e 006-asciidoctor-install.sh
 #ffmpeg install
 COPY setup/both/007-ffmpeg-install.sh .
 RUN sh -e 007-ffmpeg-install.sh
+
+#misc stuff
+COPY setup/both/010-misc-installs.sh .
+RUN sh -e 010-misc-installs.sh
