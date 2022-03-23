@@ -3,7 +3,8 @@
 source ~/.bash_profile
 
 #create required config directories 
-mkdir -p /root/host/config/tmux/
+#/root/host/.devcon/ incudes configuration directories and files
+mkdir -p /root/host/.devcon/config/tmux/
 
 #set environment variables in .bash_profile when starting the container
 #so they are accessible when using ssh to connect to container

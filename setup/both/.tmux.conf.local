@@ -387,7 +387,7 @@ set -g @continuum-restore 'on'
 set -g @continuum-save-interval '5'
 set -g @continuum-restore-max-delay '100'
 
-set -g @resurrect-dir '/root/host/config/tmux/'
+set -g @resurrect-dir '/root/host/.devcon/config/tmux/'
 
 # -- custom variables ----------------------------------------------------------
 
