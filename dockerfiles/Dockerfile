@@ -1,5 +1,6 @@
-#the main devcon Dockerfile extends clients-image
-FROM kazhar/devcon:clients
+#the main devcon Dockerfile extends clients-image or misc-image
+#FROM kazhar/devcon:clients
+FROM kazhar/devcon:misc
 
 #name of the container should be the name of the container host 
 #use '-h devcon' option , when starting the container (do not use -e option)

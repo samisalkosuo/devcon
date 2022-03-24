@@ -25,6 +25,11 @@ cd ascii-rain
 gcc rain-no-c-check.c -o /usr/local/bin/rain -lncurses
 cd $INSTALL_DIR
 
+#cowsay
+dnf -y install cowsay
+
+#fortune
+dnf -y install fortune-mod
 
 cd $cdir
 rm -rf $INSTALL_DIR

@@ -33,4 +33,7 @@ buildImage nodejs 003-nodejs.dockerfile
 buildImage tools 998-tools.dockerfile
 buildImage clients 999-clients.dockerfile
 
-buildImage latest Dockerfile
+buildImage misc 999-misc.dockerfile
+
+#do not use cache when building the latest image
+buildImage "latest --no-cache" Dockerfile
