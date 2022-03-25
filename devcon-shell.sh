@@ -41,9 +41,11 @@ fi
 __startupInfoFile=startup-info.txt
 #write startup info file
 __release=$(cat /etc/rocky-release)
+__build_time=$(cat /root/setup/build_time.txt)
 echo "Welcome, friend!" > $__startupInfoFile
 echo "" >> $__startupInfoFile
-echo "Started     : $__now" >> $__startupInfoFile
+echo "Start time  : $__now" >> $__startupInfoFile
+echo "Build time  : $__build_time" >> $__startupInfoFile
 echo "OS release  : $__release"  >> $__startupInfoFile
 echo "Host name   : $__hostname" >> $__startupInfoFile
 echo "SSHD        : $__sshd_status" >> $__startupInfoFile

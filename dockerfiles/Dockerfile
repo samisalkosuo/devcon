@@ -49,5 +49,9 @@ EXPOSE 22 $WETTY_PORT
 #map this volume to host directory where you want your persistent data
 VOLUME ["/root/host"]
 
+#build time
+RUN date > /root/setup/build_time.txt
+
 COPY devcon-shell.sh .
+
 CMD ["sh","/root/devcon-shell.sh"]
