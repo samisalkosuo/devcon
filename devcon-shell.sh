@@ -5,6 +5,11 @@ source ~/.bash_profile
 #create required config directories 
 #/root/host/.devcon/ incudes configuration directories and files
 mkdir -p /root/host/.devcon/config/tmux/
+#create XDG diretories
+mkdir -p $XDG_DATA_HOME
+mkdir -p $XDG_CONFIG_HOME
+mkdir -p $XDG_STATE_HOME
+mkdir -p $XDG_CACHE_HOME
 
 #set environment variables in .bash_profile when starting the container
 #so they are accessible when using ssh to connect to container

@@ -6,6 +6,14 @@ FROM kazhar/devcon:misc
 #use '-h devcon' option , when starting the container (do not use -e option)
 ENV DEVCON_CONTAINER_NAME=devcon
 
+#set XDG env variables
+#see: https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html
+ENV XDG_DATA_HOME=/root/host/.devcon/.local/share
+ENV XDG_CONFIG_HOME=/root/host/.devcon/.config
+ENV XDG_STATE_HOME=/root/host/.devcon/.local/state
+ENV XDG_CACHE_HOME=/root/host/.devcon/.cache
+
+
 #working directory
 WORKDIR /root/setup
 
@@ -23,6 +31,7 @@ RUN mkdir -p /root/host && \
 #====ENVIRONMENT VARIABLES SECTION START
 #set runtime environment variables
 #devcon-shell.sh script sets variables to .bash_profile 
+#remember to add variables listed in this section in devcon-shell.sh as well
 #so that they are available in ssh sessions
 
 #DISPLAY env for Windows
