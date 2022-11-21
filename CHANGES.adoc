@@ -1,5 +1,13 @@
 == CHANGES
 
+=== 0.3 (21.11.2022)
+
+- Using systemd container.
+
+=== 0.2 (21.06.2022)
+
+- New structure.
+
 === 0.1.1 (13.03.2022)
 
 - Added Ruby.
@@ -7,6 +15,7 @@
 - Added FFmpeg.
 - Added IBM Cloud CLI.
 - Added PostgreSQL client.
+- Added misc stuff.
 - Updates.
 
 === 0.1 (25.02.2022)

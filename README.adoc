@@ -1,37 +1,36 @@
 = devcon
 
-Devcon is a container that includes quite many useful tools and languages. Container is based on https://rockylinux.org/[Rocky Linux].
+Devcon is a container that includes useful scripts, tools and languages. Container is based on https://rockylinux.org/[Rocky Linux] and it uses systemd.
 
-== Build and run
+== Use cases
 
-* Build using:
-** `sh build-images.sh`
-** Script buils images from Dockerfiles in dockerfiles-directory.
-* Run using:
-** `docker run -it --rm -p 2222:22 -h devcon kazhar/devcon`
+* Need to have Linux-environment in Windows or Mac.
+* Need to have various tools without installing them to host machine.
+* Need to have development environments across multiple hosts.
+** For example, you have Windows and Mac and you work on both.
+** Using this container enables to have same environment in both hosts.
+** Files you work on, like source code, is in Dropbox or similar and synced between hosts.
 
-== Languages
+== Usage
 
-Version information is shown when starting/logging in to the container.
 
-* https://www.python.org/[Python]
-* https://nodejs.org/[Node.js]
-* https://www.ruby-lang.org/[Ruby]
 
-== Tools
+* Start container:
+```
+docker run -it --rm --name devcon --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro -p 3443:3000 -p 2222:22 devcon
+```
+* Add root password and persistent volumes:
+```
+docker run -it --rm --name devcon --privileged -p 2222:22 -v /sys/fs/cgroup:/sys/fs/cgroup:ro -p 3443:3000 -e ROOT_PASSWORD=passw0rd -v C:\HOME\work:/root/host/work -v d:\downloads:/root/downloads devcon  
+```
+* Install what is needed and then create new image using:
+```
+docker commit <container> repo:tag
+```
 
-* Various packages. 
-** See link:setup/both/000-dnf-install.sh[packages] and link:setup/container/100-dnf-install.sh[packages]
-* https://github.com/tmux/tmux/wiki[tmux] and https://github.com/gpakosz/.tmux[.tmux config file]
-* https://www.redhat.com/en/technologies/cloud-computing/openshift[OpenShift] clients
-* https://www.terraform.io/[Terraform]
-* https://lynx.invisible-island.net/[Lynx]
-* http://w3m.sourceforge.net/[w3m]
-* https://github.com/butlerx/wetty[WeTTY]
-* https://asciidoctor.org/[Asciidoctor]
-* https://ffmpeg.org/[FFmpeg]
-* https://cloud.ibm.com/docs/cli[IBM Cloud CLI]
-* https://www.postgresql.org/[PostgreSQL client]
+== Scripts
+
+See _setup-scripts_-directory for available install scripts.
 
 == Environment variables
 
@@ -42,31 +41,17 @@ Version information is shown when starting/logging in to the container.
 |ROOT_PASSWORD
 |any string
 |Random password
-|Set root password. Root password is written to `/root/startup-info.txt` file
+|Set root password. Password is written to `/root/startup-info.txt` file
 
-|DISABLE_SSHD
-|<any string>
-|N/A
-|Do not start ssh daemon.
+|DEVCON_USER_PASSWORD
+|any string
+|Random password
+|Set devcon-user password. Password is written to `/root/startup-info.txt` file
 
 |DISPLAY
 |<X display>
 |host.docker.internal:0
 |Set display for X (default value is for Windows hosts).
 
-|WETTY_HTTP
-|<any string>
-|N/A
-|Start WeTTY using HTTP.
-
-|WETTY_HTTPS
-|<any string>
-|N/A
-|Start WeTTY using HTTPS.
-
-|WETTY_PORT
-|<port>
-|3000
-|Start WeTTY (inside container) using this port.
 
 |===

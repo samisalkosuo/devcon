@@ -2,3 +2,5 @@ local/
 TODO*
 notes.md
 containerfile/
+.buildfile
+pull-secret.json

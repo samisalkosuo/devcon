@@ -1,0 +1,10 @@
+# setup-scripts
+
+Directories:
+
+- link:clients/[clients] - client software.
+- link:lang/[lang] - programming languages.
+- link:misc/[misc] - miscellaneous software.
+- link:server/[server] - server software.
+- link:tools/[tools] - tools and utilieties.
+
