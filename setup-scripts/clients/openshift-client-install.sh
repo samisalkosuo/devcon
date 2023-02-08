@@ -2,7 +2,7 @@
 
 #check latest versions
 #https://mirror.openshift.com/pub/openshift-v4/clients/ocp/
-OPENSHIFT_CLIENT_VERSION=4.10.30
+OPENSHIFT_CLIENT_VERSION=4.12.0
 
 
 function downloadOpenShiftClient
@@ -23,3 +23,5 @@ downloadOpenShiftClient openshift-client-linux.tar.gz
 downloadOpenShiftClient openshift-install-linux.tar.gz
 
 downloadOpenShiftClient opm-linux.tar.gz
+
+downloadOpenShiftClient oc-mirror.tar.gz

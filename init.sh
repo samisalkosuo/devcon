@@ -1,6 +1,9 @@
 #!/bin/bash
 
 echo "Initializing container..."
+
+source /etc/profile.d/devcon.sh
+
 #set root password
 __rootpassword=$(date +%s | sha256sum | base64 | head -c 15)
 if [[ -v ROOT_PASSWORD ]]; then
@@ -24,6 +27,9 @@ echo "$DEVCON_USER_NAME:$__devconpassword" >> /root/passwords.txt
 source /etc/os-release
 echo "export releasever=$REDHAT_SUPPORT_PRODUCT_VERSION" >>  /etc/profile.d/devcon.sh
 
+#create tmux config directory
+#directory is hard-coded in .tmux.conf.local file
+mkdir -p /root/host/config/tmux/
 
 #set supported environment variables
 if [[ -v DISPLAY ]]; then

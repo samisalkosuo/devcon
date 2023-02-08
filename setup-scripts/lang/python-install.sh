@@ -10,7 +10,7 @@ cdir=$(pwd)
 cd $INSTALL_DIR
 
 #remove existing python3 
-dnf -y remove python3  || true
+#dnf -y remove python3  || true
 
 wget https://www.python.org/ftp/python/$PYTHON_VERSION/Python-$PYTHON_VERSION.tgz
 

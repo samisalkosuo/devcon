@@ -1,8 +1,8 @@
 #Rocky Linux with systemd
 #execute using:
 #  docker run -it --rm --name devconsystemd --privileged -p 2222:22 -v /sys/fs/cgroup:/sys/fs/cgroup:ro devconsystemd
-#required flags: --privileged and -v /sys/fs/cgroup:/sys/fs/cgroup:ro
-FROM rockylinux/rockylinux:8.6
+#make sure to add required flags: --privileged and -v /sys/fs/cgroup:/sys/fs/cgroup:ro
+FROM docker.io/rockylinux/rockylinux:8.7
 
 #---setup systemd 
 ENV container docker
@@ -67,5 +67,5 @@ VOLUME ["/root/host"]
 RUN date > ${DEVCON_SETUP_DIRECTORY}/build_time.txt
 
 COPY init.sh /sbin/
-
+RUN chmod 755 /sbin/init.sh
 CMD ["/sbin/init.sh"]

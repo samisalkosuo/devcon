@@ -17,8 +17,7 @@ ssh-keygen -A && rm -f /run/nologin
 
 #workaround for ssh login disconnects after login
 #https://discuss.linuxcontainers.org/t/regular-user-is-unable-to-login-via-ssh/4119
-sed -i ':q
-s/session    required     pam_loginuid.so/#session    required     pam_loginuid.so/' /etc/pam.d/sshd
+sed -i 's/session    required     pam_loginuid.so/#session    required     pam_loginuid.so/' /etc/pam.d/sshd
 
 #prevent SSH client timeout by sending null packet every 30 seconds
 echo "ServerAliveInterval 30" >> /root/.ssh/config

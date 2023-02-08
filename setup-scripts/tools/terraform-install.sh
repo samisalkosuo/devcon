@@ -3,9 +3,8 @@
 
 #check latest version
 #https://github.com/hashicorp/terraform/releases
-TERRAFORM_VERSION=1.1.7
 
 yum-config-manager --add-repo https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo
 
-dnf -y install terraform-${TERRAFORM_VERSION}
+dnf -y install terraform
 
