@@ -3,7 +3,6 @@
 #devcon tool script for installation etc.
 
 #change to setup directory
-
 cd /setup
 
 #source all functions
