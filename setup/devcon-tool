@@ -1,0 +1,67 @@
+#!/bin/bash
+
+#devcon tool script for installation etc.
+
+#change to setup directory
+
+cd /setup
+
+#source all functions
+for f in /setup/tool/*sh; do source $f; done
+
+function help
+{
+    echo "DevCon Tool."
+    echo ""
+    echo "Usage: $0 <cmd> [<cmd-options>]"
+    echo ""
+    echo "Commands:"
+    echo ""
+    echo "  install-ffmpeg      - Install ffmpeg tool."
+    echo "  install-imagemagick - Install imagemagick tool."
+    echo ""
+    exit 1
+}
+
+function error
+{
+    echo "ERROR: $1"
+    exit 1
+}
+
+if [[ "$1" == "" ]]; then
+    #echo "No commands."
+    help
+fi
+
+#call function as sudo
+#https://unix.stackexchange.com/a/438712
+function Sudo {
+    local firstArg=$1
+    if [ $(type -t $firstArg) = function ]
+    then
+        shift && command sudo bash -c "$(declare -f $firstArg);$firstArg $*"
+    elif [ $(type -t $firstArg) = alias ]
+    then
+        alias sudo='\sudo '
+        eval "sudo $@"
+    else
+        command sudo "$@"
+    fi
+}
+
+#call functions
+#note 'shift' command moves ARGS to the left 
+
+case "$1" in
+    install-ffmpeg)        
+        sudo dnf -y install ffmpeg*
+    ;;
+    install-imagemagick)
+        sudo dnf -y install ImageMagick ImageMagick-devel
+    ;;
+    *)
+    usage
+    ;;
+esac
+

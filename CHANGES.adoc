@@ -1,5 +1,9 @@
 == CHANGES
 
+== 0.4 (10.08.2023)
+
+- Total refactoring.
+
 === 0.3 (21.11.2022)
 
 - Using systemd container.

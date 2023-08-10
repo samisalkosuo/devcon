@@ -1,6 +1,6 @@
 = devcon
 
-Devcon is a container that includes useful scripts, tools and languages. Container is based on https://rockylinux.org/[Rocky Linux] and it uses systemd.
+Devcon is a container that includes useful scripts, tools and languages. Container is based on https://rockylinux.org/[Rocky Linux].
 
 == Use cases
 
@@ -14,23 +14,8 @@ Devcon is a container that includes useful scripts, tools and languages. Contain
 == Usage
 
 
-
-* Start container:
-```
-docker run -it --rm --name devcon --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro -p 3443:3000 -p 2222:22 devcon
-```
-* Add root password and persistent volumes:
-```
-docker run -it --rm --name devcon --privileged -p 2222:22 -v /sys/fs/cgroup:/sys/fs/cgroup:ro -p 3443:3000 -e ROOT_PASSWORD=passw0rd -v C:\HOME\work:/root/host/work -v d:\downloads:/root/downloads devcon  
-```
-* Install what is needed and then create new image using:
-```
-docker commit <container> repo:tag
-```
-
 == Scripts
 
-See _setup-scripts_-directory for available install scripts.
 
 == Environment variables
 
@@ -38,20 +23,25 @@ See _setup-scripts_-directory for available install scripts.
 |===
 |Name|Value|Default|Description
 
-|ROOT_PASSWORD
-|any string
-|Random password
-|Set root password. Password is written to `/root/startup-info.txt` file
+|DEVCON_DISABLE_SSHD
+|true
+|
+|Do not start SSH-server.
+
+|DEVCON_RANDOM_USER_PASSWORD
+|true
+|
+|Set random password for devcon-user.
+
+|DEVCON_SHELL
+|true
+|
+|Start bash-shell.
 
 |DEVCON_USER_PASSWORD
 |any string
-|Random password
-|Set devcon-user password. Password is written to `/root/startup-info.txt` file
-
-|DISPLAY
-|<X display>
-|host.docker.internal:0
-|Set display for X (default value is for Windows hosts).
+|passw0rd
+|Set password for devcon-user.
 
 
 |===

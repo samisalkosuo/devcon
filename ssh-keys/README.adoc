@@ -1,0 +1,8 @@
+= SSH keys
+
+Add your own SSH keys here.
+
+For example:
+
+* Public key: `id_ed25519.pub`
+* Private key: `id_ed25519`

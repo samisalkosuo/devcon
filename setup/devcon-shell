@@ -1,0 +1,90 @@
+#!/bin/bash
+
+#script to be executed when starting the container
+#script is run as $DEVCON_USER
+
+USER_PASSWORD=passw0rd
+
+if [[ -v DEVCON_USER_PASSWORD ]]; then
+  #use env variable to change root password
+  USER_PASSWORD=$DEVCON_USER_PASSWORD
+fi 
+
+if [ "$DEVCON_RANDOM_USER_PASSWORD" = "true" ]; then
+  #use env variable to change root password
+  USER_PASSWORD=$(date +%s | sha256sum | base64 | head -c 15)
+  DEVCON_DISPLAY_PASSWORD=true
+fi 
+#echo "$DEVCON_USER:$USER_PASSWORD" > password.txt
+
+echo "$DEVCON_USER:$USER_PASSWORD" | sudo chpasswd
+
+#create directories
+#map ~/host to some container in host machine
+#tmux resurrect file is in this directory
+mkdir -p ~/host/config/tmux/
+
+#start SSH daemon if not disabled
+__sshd_status=""
+if [ "$DEVCON_DISABLE_SSHD" = "true" ]; then
+  #DISABLE_SSHD exists, do not start sshd
+  __sshd_status="disabled"
+else 
+  sudo /usr/sbin/sshd
+  __sshd_status="enabled"
+fi
+
+__user=$DEVCON_USER
+if [ "$DEVCON_DISPLAY_PASSWORD" = "true" ]; then
+    __user=$DEVCON_USER:$USER_PASSWORD
+fi
+
+#write startup info file
+__startupInfoFile=.startup-info.txt
+__now=$(date)
+__hostname=$(hostname)
+__release=$(cat /etc/rocky-release)
+__build_time=$(cat ~/.build_time)
+echo "Welcome, friend!" > $__startupInfoFile
+echo "" >> $__startupInfoFile
+echo "Start time: $__now" >> $__startupInfoFile
+echo "Build time: $__build_time" >> $__startupInfoFile
+echo "OS release: $__release"  >> $__startupInfoFile
+echo "Host name : $__hostname" >> $__startupInfoFile
+echo "SSHD      : $__sshd_status" >> $__startupInfoFile
+echo "User      : $__user" >> $__startupInfoFile
+echo "" >> $__startupInfoFile
+echo "Use 'devcon-tool' to install additional packages." >> $__startupInfoFile
+echo "" >> $__startupInfoFile
+cat $__startupInfoFile
+
+#if custom SAN, then create certificate for WeTTY
+if [[ -v DEVCON_DNS_SAN ]]; then
+    echo "Creating new certificate for WeTTY..."
+    cd setup/certificate-authority
+    sudo sh create-certificate.sh -c "DevCon WeTTY" -I "127.0.0.1 $DEVCON_IP_SAN" wetty localhost devcon $DEVCON_DNS_SAN
+    sudo mv certificate.crt ~/.ssl/wetty.crt
+    sudo mv certificate.key ~/.ssl/wetty.key
+    sudo chmod 700 ~/.ssl
+    sudo chmod 644 ~/.ssl/wetty.crt
+    sudo chmod 600 ~/.ssl/wetty.key
+    sudo chown -R $DEVCON_USER:$DEVCON_USER ~/.ssl/
+    cd ../..
+    echo "Creating new certificate for WeTTY...done."
+    echo ""
+fi
+
+if [ "$DEVCON_DISABLE_SSHD" = "true" ]; then
+  #if sshd is disabled start shell always
+  #because wetty uses ssh
+  DEVCON_SHELL=true
+fi 
+
+if [ "$DEVCON_SHELL" = "true" ]; then
+    #exec /bin/bash -l
+    #su -l $DEVCON_USER
+    exec /bin/bash -l
+else 
+    source /etc/profile
+    pid1 wetty --log-level info --host 0.0.0.0 --port 3000 --title WeTTY --base / --ssl-key ~/.ssl/wetty.key --ssl-cert ~/.ssl/wetty.crt
+fi

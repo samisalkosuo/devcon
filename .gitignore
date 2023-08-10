@@ -4,3 +4,5 @@ notes.md
 containerfile/
 .buildfile
 pull-secret.json
+ssh-keys/id*
+converted/

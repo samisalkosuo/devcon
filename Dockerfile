@@ -1,71 +1,73 @@
-#Rocky Linux with systemd
-#execute using:
-#  docker run -it --rm --name devconsystemd --privileged -p 2222:22 -v /sys/fs/cgroup:/sys/fs/cgroup:ro devconsystemd
-#make sure to add required flags: --privileged and -v /sys/fs/cgroup:/sys/fs/cgroup:ro
-FROM docker.io/rockylinux/rockylinux:8.7
+#devcon base dockerfile
+FROM docker.io/rockylinux/rockylinux:9.2 as base
 
-#---setup systemd 
-ENV container docker
-RUN (cd /lib/systemd/system/sysinit.target.wants/; for i in *; do [ $i == \
-systemd-tmpfiles-setup.service ] || rm -f $i; done); \
-rm -f /lib/systemd/system/multi-user.target.wants/*;\
-rm -f /etc/systemd/system/*.wants/*;\
-rm -f /lib/systemd/system/local-fs.target.wants/*; \
-rm -f /lib/systemd/system/sockets.target.wants/*udev*; \
-rm -f /lib/systemd/system/sockets.target.wants/*initctl*; \
-rm -f /lib/systemd/system/basic.target.wants/*;\
-rm -f /lib/systemd/system/anaconda.target.wants/*;
-VOLUME [ "/sys/fs/cgroup" ]
-#---setup systemd 
-ENV DEVCON_SETUP_DIRECTORY=/root/setup-scripts
+ENV DEVCON_USER=devcon
+ENV DEVCON_USER_HOME=/devcon
 
-#install base packages early in the build process
-WORKDIR ${DEVCON_SETUP_DIRECTORY}/base
-COPY setup-base/dnf/ ./
-#install 
-RUN sh -e 001-dnf-install.sh
-RUN sh -e 002-dnf-install.sh
+WORKDIR /setup
 
-WORKDIR ${DEVCON_SETUP_DIRECTORY}/base
+#install packages using dnf
+COPY setup/base/dnf-install.sh ./
+RUN sh -e dnf-install.sh
 
-#add environment
-COPY setup-config/environment.sh /etc/profile.d/devcon.sh
-#add and install base services
-COPY setup-base/ ./
-RUN sh -e 002-create-xdg-dirs.sh
-RUN sh -e 002-ssh-install.sh
-RUN sh -e 003-podman-install.sh
-RUN sh -e 004-tmux.conf-install.sh
-RUN sh -e 006-nodejs-install.sh
-RUN sh -e 007-wetty-install.sh
+#create user
+COPY setup/base/create-user.sh ./
+RUN sh -e create-user.sh
 
-#add setup scripts
-COPY setup-scripts/ ../
+#tmux for user
+COPY setup/base/tmux.conf-install.sh ./
+COPY setup/base/.tmux.conf.local ./
+RUN sh -e tmux.conf-install.sh
 
-#add configurations
-COPY setup-config/configurations.sh ./
-RUN sh -e configurations.sh
+#add SSH keys and setup SH
+COPY setup/base/ssh-install.sh ./
+COPY ssh-keys/id* $DEVCON_USER_HOME/.ssh/
+RUN chmod 600 $DEVCON_USER_HOME/.ssh/id* && sh -e ssh-install.sh
 
-#working directory
-WORKDIR /root
+#add CA authority
+COPY setup/base/certificate-authority.sh ./
+RUN sh -e certificate-authority.sh
 
-#create directories
-RUN mkdir -p /root/host && \
-    mkdir -p /root/tmp && \
-    mkdir -p /root/bin
+#install nodejs
+COPY setup/base/nodejs-install.sh ./
+RUN sh -e nodejs-install.sh
 
-#exposed ports
-EXPOSE 22 3000
+#install wetty
+COPY setup/base/wetty-install.sh ./
+RUN sh -e wetty-install.sh
 
-#map this volume to host directory where you want your persistent data
-#VOLUME ["/root/host"]
-#DEVCON_DEFAULT_HOST_DIRECTORY=/root/host
+#install pid1
+COPY setup/base/pid1-install.sh ./
+RUN sh -e pid1-install.sh
 
-VOLUME ["/root/host"]
+#add helper scripts
+COPY setup/scripts/*sh /usr/local/bin
+RUN chmod 755 /usr/local/bin/*sh
 
-#build time
-RUN date > ${DEVCON_SETUP_DIRECTORY}/build_time.txt
+#add devcon-tool scripts
+COPY setup/tool/ /setup/tool/
 
-COPY init.sh /sbin/
-RUN chmod 755 /sbin/init.sh
-CMD ["/sbin/init.sh"]
+#change directory ownerships
+RUN chown $DEVCON_USER:$DEVCON_USER -R $DEVCON_USER_HOME
+
+#copy shell-script
+COPY setup/devcon-shell /setup
+RUN chmod 755 /setup/devcon-shell
+
+#copy tool-script
+COPY setup/devcon-tool /usr/local/bin
+RUN chmod 755 /usr/local/bin/devcon-tool
+
+
+FROM base
+
+WORKDIR $DEVCON_USER_HOME
+USER $DEVCON_USER
+
+#disable cache for rest of build => creates new build time every time
+#note: will fail if www.random.org can not be accessed
+#see https://stackoverflow.com/a/58801213
+#ADD "https://www.random.org/cgi-bin/randbyte?nbytes=10&format=h" skipcache
+RUN date > ~/.build_time 
+
+CMD ["/setup/devcon-shell"]

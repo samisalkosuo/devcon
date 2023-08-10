@@ -1,3 +1,0 @@
-= Base
-
-These are installed on the base image.
