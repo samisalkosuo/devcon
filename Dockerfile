@@ -22,7 +22,7 @@ RUN sh -e tmux.conf-install.sh
 #add SSH keys and setup SH
 COPY setup/base/ssh-install.sh ./
 COPY ssh-keys/* $DEVCON_USER_HOME/.ssh/
-RUN chmod 600 $DEVCON_USER_HOME/.ssh/id* || sh -e ssh-install.sh
+RUN chmod 600 $DEVCON_USER_HOME/.ssh/* && sh -e ssh-install.sh
 
 #add CA authority
 COPY setup/base/certificate-authority.sh ./
