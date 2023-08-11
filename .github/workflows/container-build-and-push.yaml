@@ -23,7 +23,7 @@ jobs:
       id: set_image_tag
       run: |
         if [[ "$GITHUB_REF_NAME" == "main" ]]; then
-          echo "tag_name=base" >> $GITHUB_ENV
+          echo "tag_name=latest" >> $GITHUB_ENV
         else
           echo "tag_name=$GITHUB_REF_NAME" >> $GITHUB_ENV
         fi
