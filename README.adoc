@@ -28,6 +28,16 @@ Devcon is a container that includes useful scripts, tools and languages. Contain
 |
 |Do not start SSH-server.
 
+|DEVCON_DNS_SAN
+|<space separated list of names for WeTTY certificate>
+|
+|List of custom DNS SANs for WeTTY certificate.
+
+|DEVCON_IP_SAN
+|<space separated list of IP addresses for WeTTY certificate>
+|
+|List of custom IP SANs for WeTTY certificate.
+
 |DEVCON_RANDOM_USER_PASSWORD
 |true
 |
