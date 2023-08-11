@@ -20,10 +20,10 @@ fi
 echo "$DEVCON_USER:$USER_PASSWORD" | sudo chpasswd
 
 #create directories
-#map ~/host to some container in host machine
+#map /devcon/host to some container in host machine
 #tmux resurrect file is in this directory
-mkdir -p ~/host/config/tmux/
-
+mkdir -p ~/host/.devcon/config/tmux/
+  
 #start SSH daemon if not disabled
 __sshd_status=""
 if [ "$DEVCON_DISABLE_SSHD" = "true" ]; then
@@ -58,20 +58,26 @@ echo "Use 'devcon-tool' to install additional packages." >> $__startupInfoFile
 echo "" >> $__startupInfoFile
 cat $__startupInfoFile
 
+function createCertificate
+{
+  echo "Creating new certificate for WeTTY..."
+  cdir=$(pwd)
+  cd /setup/certificate-authority
+  sudo sh create-certificate.sh -c "DevCon WeTTY" -I "127.0.0.1 $DEVCON_IP_SAN" wetty localhost devcon $DEVCON_DNS_SAN
+  sudo mv certificate.crt ~/.ssl/wetty.crt
+  sudo mv certificate.key ~/.ssl/wetty.key
+  sudo chmod 700 ~/.ssl
+  sudo chmod 644 ~/.ssl/wetty.crt
+  sudo chmod 600 ~/.ssl/wetty.key
+  sudo chown -R $DEVCON_USER:$DEVCON_USER ~/.ssl/
+  cd $cdir
+  echo "Creating new certificate for WeTTY...done."
+  echo ""
+
+}
 #if custom SAN, then create certificate for WeTTY
-if [[ -v DEVCON_DNS_SAN ]]; then
-    echo "Creating new certificate for WeTTY..."
-    cd setup/certificate-authority
-    sudo sh create-certificate.sh -c "DevCon WeTTY" -I "127.0.0.1 $DEVCON_IP_SAN" wetty localhost devcon $DEVCON_DNS_SAN
-    sudo mv certificate.crt ~/.ssl/wetty.crt
-    sudo mv certificate.key ~/.ssl/wetty.key
-    sudo chmod 700 ~/.ssl
-    sudo chmod 644 ~/.ssl/wetty.crt
-    sudo chmod 600 ~/.ssl/wetty.key
-    sudo chown -R $DEVCON_USER:$DEVCON_USER ~/.ssl/
-    cd ../..
-    echo "Creating new certificate for WeTTY...done."
-    echo ""
+if [[ -v DEVCON_DNS_SAN ]] || [[ -v DEVCON_IP_SAN ]]; then
+  createCertificate
 fi
 
 if [ "$DEVCON_DISABLE_SSHD" = "true" ]; then
@@ -85,6 +91,7 @@ if [ "$DEVCON_SHELL" = "true" ]; then
     #su -l $DEVCON_USER
     exec /bin/bash -l
 else 
+    echo "Starting WeTTY on port 3000..."
     source /etc/profile
     pid1 wetty --log-level info --host 0.0.0.0 --port 3000 --title WeTTY --base / --ssl-key ~/.ssl/wetty.key --ssl-cert ~/.ssl/wetty.crt
 fi
