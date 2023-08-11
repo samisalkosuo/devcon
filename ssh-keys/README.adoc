@@ -2,6 +2,13 @@
 
 Add your own SSH keys here.
 
+Supported types:
+
+* dsa
+* ecdsa 
+* ed25519 
+* rsa
+
 For example:
 
 * Public key: `id_ed25519.pub`

@@ -5,8 +5,18 @@
 #install openssh server in order to generate ssh key
 dnf -y install --enablerepo=epel-testing openssh-server
 
-#public key already present
-cat $DEVCON_USER_HOME/.ssh/id_ed25519.pub >> $DEVCON_USER_HOME/.ssh/authorized_keys
+function addKey
+{
+    local KEY_FILE=$1
+    if [ -f "$KEY_FILE" ]; then
+        cat $KEY_FILE >> $DEVCON_USER_HOME/.ssh/authorized_keys
+    fi
+}
+
+addKey $DEVCON_USER_HOME/.ssh/id_ed25519.pub
+addKey $DEVCON_USER_HOME/.ssh/id_ecdsa.pub
+addKey $DEVCON_USER_HOME/.ssh/id_dsa.pub
+addKey $DEVCON_USER_HOME/.ssh/id_rsa.pub
 
 #set up sshd
 ssh-keygen -A && rm -f /run/nologin
