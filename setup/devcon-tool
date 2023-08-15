@@ -2,11 +2,10 @@
 
 #devcon tool script for installation etc.
 
-#change to setup directory
-cd /setup
-
 #source all functions
 for f in /setup/tool/*sh; do source $f; done
+
+cd $cdir
 
 function help
 {
@@ -16,12 +15,14 @@ function help
     echo ""
     echo "Commands:"
     echo ""
+    echo "  help                     - This help."
     echo "  ffmpeg-install           - Install ffmpeg tool."
     echo "  ibmcloud-install         - Install IBM Cloud CLI client with all plugins."
     echo "  imagemagick-install      - Install imagemagick tool."
+    echo "  java-install             - Install Java from dnf repository."
     echo "  jupyter-install          - Install JupyterLab."
     echo "  jupyter-start            - Start JupyterLab, listening on port 8888."
-    echo "  openshift-client-install - Install OpenShift oc and other clients."
+    echo "  openshift-client-install - Install OpenShift clients (oc, openshift-install, etc.)."
     echo ""
     exit 1
 }
@@ -88,8 +89,21 @@ case "$1" in
         downloadOpenShiftClient oc-mirror.tar.gz
         downloadOpenShiftClient ccoctl-linux.tar.gz
     ;;
+    java-install)
+        #install OpenJDK from repository
+        #check available by listing what are possible to install
+        #dnf install java-*devel
+
+        #JAVA_VERSION=java-1.8.0
+        #JAVA_VERSION=java-11
+        JAVA_VERSION=java-17
+        install-java $JAVA_VERSION
+    ;;
+    help)
+        help
+    ;;
     *)
-        usage
+        help
     ;;
 esac
 

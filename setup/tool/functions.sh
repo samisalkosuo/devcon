@@ -18,7 +18,7 @@ function install-ibmcloud-cli
     #install ibmcloud CLI
     tar -xf ${FILENAME}
     cd Bluemix_CLI/
-    ./install
+    sudo ./install
 
     #install all ibmcloud CLI plugins
     ibmcloud plugin install --all
@@ -37,7 +37,24 @@ function downloadOpenShiftClient
     curl $__dlurl/${__file} > ${__file}
 
     echo "Extracting ${__file} to /usr/local/bin/..."
-    tar  -C /usr/local/bin/ -xf ${__file}
+    sudo tar  -C /usr/local/bin/ -xf ${__file}
     rm -f  ${__file}
     echo "Downloading ${__file}...done."
+}
+
+function install-java
+{
+    #install OpenJDK from repository
+
+    local JAVA_VERSION=$1
+
+    sudo dnf -y install ${JAVA_VERSION}-openjdk-devel
+
+    #set installed java as default
+    local java_path=$(alternatives --display java |grep $JAVA_VERSION |grep -v "^ " |awk '{print $1}')
+    sudo alternatives --set java $java_path
+
+    #To set manually default Java, use:
+    #alternatives --config java
+
 }
