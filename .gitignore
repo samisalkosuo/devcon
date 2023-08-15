@@ -6,3 +6,4 @@ containerfile/
 pull-secret.json
 ssh-keys/id*
 converted/
+tmp/

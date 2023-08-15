@@ -16,8 +16,12 @@ function help
     echo ""
     echo "Commands:"
     echo ""
-    echo "  install-ffmpeg      - Install ffmpeg tool."
-    echo "  install-imagemagick - Install imagemagick tool."
+    echo "  ffmpeg-install           - Install ffmpeg tool."
+    echo "  ibmcloud-install         - Install IBM Cloud CLI client with all plugins."
+    echo "  imagemagick-install      - Install imagemagick tool."
+    echo "  jupyter-install          - Install JupyterLab."
+    echo "  jupyter-start            - Start JupyterLab, listening on port 8888."
+    echo "  openshift-client-install - Install OpenShift oc and other clients."
     echo ""
     exit 1
 }
@@ -53,14 +57,39 @@ function Sudo {
 #note 'shift' command moves ARGS to the left 
 
 case "$1" in
-    install-ffmpeg)        
+    ffmpeg-install)
         sudo dnf -y install ffmpeg*
     ;;
-    install-imagemagick)
+    imagemagick-install)
         sudo dnf -y install ImageMagick ImageMagick-devel
+    ;;    
+    jupyter-install)
+        pip install jupyterlab
+    ;;
+    jupyter-start)
+        export JUPYTER_PORT=8888
+        jupyter lab --ip=0.0.0.0
+    ;;
+    ibmcloud-install)
+        #IBM Cloud CLI https://cloud.ibm.com/docs/cli
+        #check latest release
+        #https://github.com/IBM-Cloud/ibm-cloud-cli-release/releases/
+        IBMCLOUD_VERSION=2.18.0
+        install-ibmcloud-cli $IBMCLOUD_VERSION
+    ;;
+    openshift-client-install)
+        #check latest versions
+        #https://mirror.openshift.com/pub/openshift-v4/clients/ocp/
+        OPENSHIFT_CLIENT_VERSION=4.12.27
+
+        downloadOpenShiftClient openshift-client-linux.tar.gz
+        downloadOpenShiftClient openshift-install-linux.tar.gz
+        downloadOpenShiftClient opm-linux.tar.gz
+        downloadOpenShiftClient oc-mirror.tar.gz
+        downloadOpenShiftClient ccoctl-linux.tar.gz
     ;;
     *)
-    usage
+        usage
     ;;
 esac
 

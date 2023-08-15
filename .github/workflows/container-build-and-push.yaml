@@ -12,6 +12,7 @@ on:
       - '.gitignore'
       - '.github/**'
       - 'openshift/**'
+      - 'containers/**'
 
 jobs:
   build-and-push:

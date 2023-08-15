@@ -55,6 +55,7 @@ gpm-libs
 perl
 perl-NKF
 nmstate
+pip
 """
 
 dnf -y install epel-release
