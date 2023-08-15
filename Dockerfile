@@ -1,5 +1,5 @@
 #devcon base dockerfile
-FROM docker.io/rockylinux/rockylinux:9.2 as base
+FROM docker.io/rockylinux/rockylinux:9.2
 
 ENV DEVCON_USER=devcon
 ENV DEVCON_USER_HOME=/devcon
@@ -40,26 +40,22 @@ RUN sh -e wetty-install.sh
 COPY setup/base/pid1-install.sh ./
 RUN sh -e pid1-install.sh
 
+#copy files
+
 #add helper scripts
 COPY setup/scripts/*sh /usr/local/bin
-RUN chmod 755 /usr/local/bin/*sh
-
 #add devcon-tool scripts
 COPY setup/tool/ /setup/tool/
-
-#change directory ownerships
-RUN chown $DEVCON_USER:$DEVCON_USER -R $DEVCON_USER_HOME
-
 #copy shell-script
 COPY setup/devcon-shell /setup
-RUN chmod 755 /setup/devcon-shell
-
 #copy tool-script
 COPY setup/devcon-tool /usr/local/bin
-RUN chmod 755 /usr/local/bin/devcon-tool
 
-
-FROM base
+#run commands
+RUN chmod 755 /usr/local/bin/*sh && \
+    chown $DEVCON_USER:$DEVCON_USER -R $DEVCON_USER_HOME && \
+    chmod 755 /setup/devcon-shell && \
+    chmod 755 /usr/local/bin/devcon-tool
 
 WORKDIR $DEVCON_USER_HOME
 USER $DEVCON_USER
@@ -68,6 +64,8 @@ USER $DEVCON_USER
 #note: will fail if www.random.org can not be accessed
 #see https://stackoverflow.com/a/58801213
 #ADD "https://www.random.org/cgi-bin/randbyte?nbytes=10&format=h" skipcache
+
+#save build time
 RUN date > ~/.build_time 
 
 CMD ["/setup/devcon-shell"]
