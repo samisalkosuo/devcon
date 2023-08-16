@@ -23,6 +23,7 @@ function help
     echo "  jupyter-install          - Install JupyterLab."
     echo "  jupyter-start            - Start JupyterLab, listening on port 8888."
     echo "  openshift-client-install - Install OpenShift clients (oc, openshift-install, etc.)."
+    echo "  python-install           - Install Python from source."
     echo ""
     exit 1
 }
@@ -98,6 +99,12 @@ case "$1" in
         #JAVA_VERSION=java-11
         JAVA_VERSION=java-17
         install-java $JAVA_VERSION
+    ;;
+    python-install)
+        #install python from source
+        #check latest python: https://www.python.org
+        PYTHON_VERSION=3.11.4
+        install-python $PYTHON_VERSION
     ;;
     help)
         help
