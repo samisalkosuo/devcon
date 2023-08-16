@@ -24,8 +24,8 @@ Devcon is a container that includes useful scripts, tools and languages. Contain
 |Name|Value|Default|Description
 
 |DEVCON_DISABLE_SSHD
-|true
-|
+|true\|false
+|false
 |Do not start SSH-server.
 
 |DEVCON_DNS_SAN
@@ -39,19 +39,44 @@ Devcon is a container that includes useful scripts, tools and languages. Contain
 |List of custom IP SANs for WeTTY certificate.
 
 |DEVCON_RANDOM_USER_PASSWORD
-|true
-|
+|true\|false
+|false
 |Set random password for devcon-user.
 
-|DEVCON_SHELL
+|DEVCON_START_TMUX
+|true\|false
 |true
-|
-|Start bash-shell.
+|Start tmux when starting shell.
+
+|DEVCON_START_WETTY
+|true\|false
+|true
+|Start WeTTY web server.
 
 |DEVCON_USER_PASSWORD
 |any string
 |passw0rd
 |Set password for devcon-user.
+
+
+|===
+
+== Ports
+
+The container uses or might use various ports.
+
+.Ports that might be used in the container
+|===
+|Port|Purpose
+
+|22
+|SSH server.
+
+|3000
+|WeTTY server.
+
+|8888
+|JupyterLab.
 
 
 |===
