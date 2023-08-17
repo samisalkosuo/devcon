@@ -1,4 +1,5 @@
-FROM kazhar/devcon:latest
+#FROM kazhar/devcon:latest
+FROM devcon:latest
 
-RUN devcon-tool install-ffmpeg
-RUN devcon-tool install-imagemagick
+RUN devcon-tool ffmpeg-install 
+RUN devcon-tool imagemagick-install
