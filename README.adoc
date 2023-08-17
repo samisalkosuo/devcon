@@ -8,14 +8,59 @@ Devcon is a container that includes useful scripts, tools and languages. Contain
 * Need to have various tools without installing them to host machine.
 * Need to have development environments across multiple hosts.
 ** For example, you have Windows and Mac and you work on both.
-** Using this container enables to have same environment in both hosts.
+** Using this container enables to have the same environment in both hosts.
 ** Files you work on, like source code, is in Dropbox or similar and synced between hosts.
 
 == Usage
 
+Run devcon as any other container.
 
-== Scripts
+* Simplest way to start.
+```
+podman run -it --rm docker.io/kazhar/devcon:latest
+```
 
+* Run with WeTTY server.
+
+```
+podman run -it --rm -p 3001:3000 -e DEVCON_START_WETTY=true docker.io/kazhar/devcon:latest
+```
+
+* Run with SSH server exposed and map local directory to container.
+
+```
+podman run -it --rm -p 2322:22 -e DEVCON_START_WETTY=true -v .:/devcon/host docker.io/kazhar/devcon:latest
+```
+
+If you don't have `podman``, use `docker` instead.
+
+== Installed software
+
+Many packages are installed from dnf-repository during image build.
+
+Additionally, the following have been installed:
+
+* https://nodejs.org[Node.js]
+* https://github.com/butlerx/wetty[WeTTY]
+* https://github.com/samisalkosuo/certificate-authority[My Certificate Authority]
+* https://github.com/gpakosz/.tmux[Oh my tmux!]
+
+
+== devcon-tool
+
+`devcon-tool` is a script inside the image that is used to manage the container.
+It is used mainly to install various software/tools inside the container.
+
+For example, devcon-tool is used to:
+
+* Install https://docs.openshift.com/container-platform/4.12/cli_reference/openshift_cli/getting-started-cli.html[OpenShift CLI clients].
+* Install https://cloud.ibm.com/docs/cli[IBM Cloud CLI client].
+* Install https://imagemagick.org[imagemagick] from repository.
+* Install https://www.ffmpeg.org/[ffmpeg] from repository.
+* Install https://www.python.org/[Python] from source.
+* And so on.
+
+See `devcon-tool help`` inside the container.
 
 == Environment variables
 
@@ -50,7 +95,7 @@ Devcon is a container that includes useful scripts, tools and languages. Contain
 
 |DEVCON_START_WETTY
 |true\|false
-|true
+|false
 |Start WeTTY web server.
 
 |DEVCON_USER_PASSWORD

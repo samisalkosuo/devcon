@@ -9,13 +9,10 @@ WETTY_VERSION=2.5.0
 mkdir -p $DEVCON_USER_HOME/.ssl
 
 #create certificate for wetty
-#openssl req -x509 -newkey rsa:4096 -sha256 -days 10950 -nodes \
-#  -out ~/.ssl/wetty.crt -keyout ~/.ssl/wetty.key \
-#  -subj "/C=FI/ST=None/L=None/O=Sami Salkosuo/OU=DevCon/CN=WeTTY" \
-#  -addext "subjectAltName=DNS:wetty,DNS:devcon,DNS:localhost,IP:127.0.0.1"
+create-certificate.sh -c "DevCon WeTTY" -I "127.0.0.1" wetty localhost devcon
 
-cp certificate-authority/certificate.crt $DEVCON_USER_HOME/.ssl/wetty.crt
-cp certificate-authority/certificate.key $DEVCON_USER_HOME/.ssl/wetty.key
+mv certificate.crt $DEVCON_USER_HOME/.ssl/wetty.crt
+mv certificate.key $DEVCON_USER_HOME/.ssl/wetty.key
 chmod 700 $DEVCON_USER_HOME/.ssl
 chmod 644 $DEVCON_USER_HOME/.ssl/wetty.crt
 chmod 600 $DEVCON_USER_HOME/.ssl/wetty.key

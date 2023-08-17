@@ -1,6 +1,6 @@
 == CHANGES
 
-== 0.4 (10.08.2023)
+== 0.4 (17.08.2023)
 
 - Total refactoring.
 
