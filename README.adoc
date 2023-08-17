@@ -13,7 +13,9 @@ Devcon is a container that includes useful scripts, tools and languages. Contain
 
 == Usage
 
-Run devcon as any other container.
+Run devcon as any other container. When container is started it uses non-root user, `devcon`, with sudo rights.
+
+Some examples:
 
 * Simplest way to start.
 ```
@@ -26,13 +28,23 @@ podman run -it --rm docker.io/kazhar/devcon:latest
 podman run -it --rm -p 3001:3000 -e DEVCON_START_WETTY=true docker.io/kazhar/devcon:latest
 ```
 
-* Run with SSH server exposed and map local directory to container.
+* Run with SSH server exposed and map local directory to container. `/devcon/host/.devcon/` directory is created and it is used to store persistent data, for example tmux resurrect file.
 
 ```
-podman run -it --rm -p 2322:22 -e DEVCON_START_WETTY=true -v .:/devcon/host docker.io/kazhar/devcon:latest
+podman run -it --rm -p 2322:22 -v .:/devcon/host docker.io/kazhar/devcon:latest
 ```
 
 If you don't have `podman`, use `docker` instead.
+
+=== Build image
+
+Build as any other containter.
+
+For example:
+
+```
+podman build -t my-devcon .
+```
 
 == Installed software
 
