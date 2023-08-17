@@ -34,10 +34,9 @@ sudo chmod 755 /etc/bash_completion.d/devcon-completion.sh
 #tmux resurrect file is in this directory
 mkdir -p ~/host/.devcon/config/tmux/
   
-#start SSH daemon if not disabled
+#start SSH daemon if not told to not 
 __sshd_status=""
-if [ "$DEVCON_DISABLE_SSHD" = "true" ]; then
-  #DISABLE_SSHD exists, do not start sshd
+if [ "$DEVCON_START_SSHD" = "false" ]; then
   __sshd_status="disabled"
 else 
   sudo /usr/sbin/sshd
@@ -97,12 +96,6 @@ function createCertificate
 if [[ -v DEVCON_DNS_SAN ]] || [[ -v DEVCON_IP_SAN ]]; then
   createCertificate
 fi
-
-if [ "$DEVCON_DISABLE_SSHD" = "true" ]; then
-  #if sshd is disabled start shell always
-  #because wetty uses ssh
-  DEVCON_SHELL=true
-fi 
 
 if [ "$DEVCON_START_WETTY" = "true" ]; then
     echo "Starting WeTTY on port 3000..."
