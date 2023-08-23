@@ -43,13 +43,13 @@ RUN sh -e pid1-install.sh
 #copy files
 
 #add helper scripts
-COPY setup/scripts/*sh /usr/local/bin
+COPY setup/scripts/*sh /usr/local/bin/
 #add devcon-tool scripts
 COPY setup/tool/ /setup/tool/
 #copy shell-script
-COPY setup/devcon-shell /setup
+COPY setup/devcon-shell /setup/
 #copy tool-script
-COPY setup/devcon-tool /usr/local/bin
+COPY setup/devcon-tool /usr/local/bin/
 
 #run commands
 RUN chmod 755 /usr/local/bin/*sh && \

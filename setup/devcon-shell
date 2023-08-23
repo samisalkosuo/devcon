@@ -2,7 +2,6 @@
 
 #script to be executed when starting the container
 #script is run as $DEVCON_USER
-
 USER_PASSWORD=passw0rd
 
 if [[ -v DEVCON_USER_PASSWORD ]]; then
@@ -92,6 +91,7 @@ function createCertificate
   echo ""
 
 }
+
 #if custom SAN, then create certificate for WeTTY
 if [[ -v DEVCON_DNS_SAN ]] || [[ -v DEVCON_IP_SAN ]]; then
   createCertificate
