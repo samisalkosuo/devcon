@@ -42,30 +42,13 @@ function downloadOpenShiftClient
     echo "Downloading ${__file}...done."
 }
 
-function install-java
-{
-    #install OpenJDK from repository
-
-    local JAVA_VERSION=$1
-
-    sudo dnf -y install ${JAVA_VERSION}-openjdk-devel
-
-    #set installed java as default
-    local java_path=$(alternatives --display java |grep $JAVA_VERSION |grep -v "^ " |awk '{print $1}')
-    sudo alternatives --set java $java_path
-
-    #To set manually default Java, use:
-    #alternatives --config java
-
-}
-
 function install-python
 {
     #install python from source
 
     local PYTHON_VERSION=$1
 
-    INSTALL_DIR=python-install
+    local INSTALL_DIR=python-install
     mkdir -p $INSTALL_DIR
     cdir=$(pwd)
     cd $INSTALL_DIR
@@ -89,3 +72,4 @@ function install-python
     sudo rm -rf $INSTALL_DIR
 
 }
+

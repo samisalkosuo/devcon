@@ -16,6 +16,9 @@ OPENSHIFT_CLIENT_VERSION=4.12.27
 #JAVA_VERSION=java-11
 JAVA_VERSION=java-17
 
+#check latest Maven version https://maven.apache.org/download.cgi
+MAVEN_VERSION=3.9.4
+
 
 #source all functions
 for f in /setup/tool/*sh; do source $f; done
@@ -37,6 +40,7 @@ function help
     echo "  java-install             - Install Java (${JAVA_VERSION}) from dnf repository."
     echo "  jupyter-install          - Install JupyterLab."
     echo "  jupyter-start            - Start JupyterLab, listening on port 8888."
+    echo "  maven-install            - Install Maven (${MAVEN_VERSION})."
     echo "  openshift-client-install - Install OpenShift (${OPENSHIFT_CLIENT_VERSION}) clients (oc, openshift-install, etc.)."
     echo "  python-install           - Install Python (${PYTHON_VERSION}) from source."
     echo ""
@@ -100,6 +104,12 @@ case "$1" in
     java-install)
         #install OpenJDK from repository
         install-java $JAVA_VERSION
+    ;;
+    maven-install)
+        #install Maven
+        install-maven $MAVEN_VERSION
+        echo "Set PATH in the current shell:"
+        echo "export PATH=\$PATH:/usr/local/bin/apache-maven-$MAVEN_VERSION/bin"
     ;;
     python-install)
         #install python from source
