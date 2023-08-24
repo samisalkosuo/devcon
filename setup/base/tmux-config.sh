@@ -11,7 +11,7 @@ function setupTmuxConfigFile
 #tmux config file
 
 #enable mouse
-set -g mouse on
+#set -g mouse on
 
 #set history limit
 set-option -g history-limit 5000
