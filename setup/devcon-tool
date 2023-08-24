@@ -119,11 +119,13 @@ case "$1" in
     entertainment-install)
         install-rain
         install-cmatrix
-        
+        install-2048
+
         echo ""
         echo "Entertaining commands:"
-        echo "  rain"
+        echo "  2048"
         echo "  cmatrix"
+        echo "  rain"
 
     ;;
     help)
