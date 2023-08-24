@@ -1,6 +1,6 @@
 #workflow to build and push container
 #called by other workflows
-name: Container build and push
+name: Reusable container build and push
 
 on:
   workflow_call:

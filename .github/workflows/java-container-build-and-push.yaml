@@ -5,7 +5,7 @@ on:
 
 jobs:
   call-container-build-and-push:
-    uses: ./.github/workflows/container-build-and-push.yaml
+    uses: ./.github/workflows/reusable-container-build-and-push.yaml
     with:
       tagname: java
       dockerfile: containers/java.containerfile
