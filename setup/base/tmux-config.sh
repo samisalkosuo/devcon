@@ -22,6 +22,9 @@ bind c new-window -c "#{pane_current_path}"
 #split pane shortcuts, horizontal and vertical
 bind | split-window -hc "#{pane_current_path}"
 bind - split-window -vc "#{pane_current_path}"
+
+#Prefix + Space toggles between current and previous window
+bind Space last-window
 EOF
 
 }
