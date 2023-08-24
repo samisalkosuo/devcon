@@ -1,0 +1,13 @@
+name: Java container build and push
+
+on:
+  workflow_dispatch:
+
+jobs:
+  call-container-build-and-push:
+    uses: ./.github/workflows/container-build-and-push.yaml
+    with:
+      tagname: java
+      dockerfile: containers/java.containerfile
+      
+        
