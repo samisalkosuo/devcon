@@ -27,11 +27,6 @@ EOF
 sudo mv /tmp/devcon-completion.sh /etc/bash_completion.d/devcon-completion.sh 
 sudo chown root:root /etc/bash_completion.d/devcon-completion.sh 
 sudo chmod 755 /etc/bash_completion.d/devcon-completion.sh 
-
-#create directories
-#map /devcon/host to some container in host machine
-#tmux resurrect file is in this directory
-mkdir -p ~/host/.devcon/config/tmux/
   
 #start SSH daemon if not told to not 
 __sshd_status=""

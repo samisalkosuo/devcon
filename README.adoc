@@ -28,10 +28,10 @@ podman run -it --rm docker.io/kazhar/devcon:latest
 podman run -it --rm -p 3001:3000 -e DEVCON_START_WETTY=true docker.io/kazhar/devcon:latest
 ```
 
-* Run with SSH server exposed and map local directory to container. `/devcon/host/.devcon/` directory is created and it is used to store persistent data, for example tmux resurrect file.
+* Run with SSH server exposed and map local directory to container.
 
 ```
-podman run -it --rm -p 2322:22 -v .:/devcon/host docker.io/kazhar/devcon:latest
+podman run -it --rm -p 2322:22 -v /data:/devcon/data docker.io/kazhar/devcon:latest
 ```
 
 If you don't have `podman`, use `docker` instead.
@@ -55,8 +55,6 @@ Additionally, the following have been installed:
 * https://nodejs.org[Node.js]
 * https://github.com/butlerx/wetty[WeTTY]
 * https://github.com/samisalkosuo/certificate-authority[My Certificate Authority]
-* https://github.com/gpakosz/.tmux[Oh my tmux!]
-
 
 == devcon-tool
 
@@ -72,7 +70,7 @@ For example, devcon-tool is used to:
 * Install https://www.python.org/[Python] from source.
 * And so on.
 
-See `devcon-tool help`` inside the container.
+See `devcon-tool help` inside the container.
 
 == Environment variables
 
@@ -103,7 +101,7 @@ See `devcon-tool help`` inside the container.
 |DEVCON_START_TMUX
 |true\|false
 |true
-|Start tmux when starting shell.
+|Start tmux when starting container.
 
 |DEVCON_START_WETTY
 |true\|false
