@@ -1,4 +1,6 @@
-name: Container image build and push
+#build and push base container
+
+name: Base container image build and push
 
 on:
   workflow_dispatch:
