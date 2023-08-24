@@ -17,22 +17,9 @@ on:
       - 'containers/**'
 
 jobs:
-  build-and-push:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout the code
-      uses: actions/checkout@v3
-    - name: Set image tag
-      id: set_image_tag
-      run: |
-        if [[ "$GITHUB_REF_NAME" == "main" ]]; then
-          echo "tag_name=latest" >> $GITHUB_ENV
-        else
-          echo "tag_name=$GITHUB_REF_NAME" >> $GITHUB_ENV
-        fi
-    - name: Build and push
-      uses: ./.github/workflows/reusable-container-build-and-push.yaml
-      with:
-        tagname: ${{ env.tag_name }}
-        dockerfile: Dockerfile
-      secrets: inherit
+  call-container-build-and-push:
+    uses: ./.github/workflows/reusable-container-build-and-push.yaml
+    with:
+      tagname: $GITHUB_REF_NAME
+      dockerfile: containers/java.containerfile
+    secrets: inherit
