@@ -34,6 +34,7 @@ function help
     echo "Commands:"
     echo ""
     echo "  help                     - This help."
+    echo "  entertainment-install    - Install various entertaining software."
     echo "  ffmpeg-install           - Install ffmpeg tool."
     echo "  ibmcloud-install         - Install IBM Cloud CLI (${IBMCLOUD_VERSION}) client with all plugins."
     echo "  imagemagick-install      - Install imagemagick tool."
@@ -114,6 +115,16 @@ case "$1" in
     python-install)
         #install python from source
         install-python $PYTHON_VERSION
+    ;;
+    entertainment-install)
+        install-rain
+        install-cmatrix
+        
+        echo ""
+        echo "Entertaining commands:"
+        echo "  rain"
+        echo "  cmatrix"
+
     ;;
     help)
         help

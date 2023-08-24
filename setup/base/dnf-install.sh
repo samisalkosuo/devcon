@@ -56,6 +56,7 @@ perl
 perl-NKF
 nmstate
 pip
+cmake
 """
 
 dnf -y install epel-release
