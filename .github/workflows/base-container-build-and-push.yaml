@@ -35,6 +35,7 @@ jobs:
       with:
         tagname: java
         dockerfile: containers/java.containerfile
+      secrets: inherit
 
     # - name: Docker Build, Tag & Push
     #   uses: mr-smithers-excellent/docker-build-push@v6

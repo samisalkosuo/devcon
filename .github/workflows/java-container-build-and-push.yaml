@@ -9,5 +9,6 @@ jobs:
     with:
       tagname: java
       dockerfile: containers/java.containerfile
+    secrets: inherit
       
         
