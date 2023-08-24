@@ -14,11 +14,6 @@ RUN sh -e dnf-install.sh
 COPY setup/base/create-user.sh ./
 RUN sh -e create-user.sh
 
-#tmux for user
-COPY setup/base/tmux.conf-install.sh ./
-COPY setup/base/.tmux.conf.local ./
-RUN sh -e tmux.conf-install.sh
-
 #add SSH keys and setup SH
 COPY setup/base/ssh-install.sh ./
 COPY ssh-keys/* $DEVCON_USER_HOME/.ssh/
@@ -39,6 +34,10 @@ RUN sh -e wetty-install.sh
 #install pid1
 COPY setup/base/pid1-install.sh ./
 RUN sh -e pid1-install.sh
+
+#tmux config for user
+COPY setup/base/tmux-config.sh ./
+RUN sh -e tmux-config.sh
 
 #copy files
 
