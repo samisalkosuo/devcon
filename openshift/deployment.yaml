@@ -32,8 +32,6 @@ spec:
         env:
         - name: DEVCON_START_WETTY
           value: "true"
-        - name: DEVCON_USER_PASSWORD
-          value: "my0penLDAP!#&"
         volumeMounts:
           - name: data
             mountPath: /devcon/data
