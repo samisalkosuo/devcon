@@ -4,4 +4,4 @@ YAMLs to be used to deploy to OpenShift.
 
 Manual deployment or GitOps deployment.
 
-* PVC need to be created manually because data to be persistent might be useful beyond lifecycle of devcon.
+* PVC should be created manually because data to be persistent might be useful beyond lifecycle of devcon.
