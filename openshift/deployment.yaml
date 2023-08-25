@@ -32,6 +32,11 @@ spec:
         env:
         - name: DEVCON_START_WETTY
           value: "true"
+        - name: DEVCON_USER_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: devcon-user-password
+              key: password
         volumeMounts:
           - name: data
             mountPath: /devcon/data
