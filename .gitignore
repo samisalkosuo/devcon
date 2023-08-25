@@ -9,4 +9,4 @@ converted/
 tmp/
 .devcon/
 .dockerignore
-openshift/secret.yaml
+openshift/base/secret.yaml

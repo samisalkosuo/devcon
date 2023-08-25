@@ -1,0 +1,14 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: devcon-deployment
+  namespace: devcon
+  labels:
+    app: devcon
+  annotations:
+    argocd.argoproj.io/sync-wave: "-6"
+spec:
+    spec:
+      containers:
+      - name: devcon
+        image: kazhar/devcon:ocp
