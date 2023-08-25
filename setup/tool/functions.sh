@@ -1,6 +1,5 @@
 #functions
 
-
 function install-ibmcloud-cli
 {
     local IBMCLOUD_VERSION=$1
@@ -73,3 +72,32 @@ function install-python
 
 }
 
+function install-cloudpakplugin
+{
+    local IBMPAKPLUGIN_VERSION=$1
+
+    local FILENAME=cloudctl-linux-amd64.tar.gz
+
+    local INSTALL_DIR=cloudpak-install
+    mkdir -p $INSTALL_DIR
+    local cdir=$(pwd)
+    cd $INSTALL_DIR
+
+    #install cloud pak plugin
+    wget https://github.com/IBM/ibm-pak/releases/download/v${IBMPAKPLUGIN_VERSION}/oc-ibm_pak-linux-amd64.tar.gz
+    tar -xf oc-ibm_pak-linux-amd64.tar.gz
+    sudo mv oc-ibm_pak-linux-amd64 /usr/local/bin/oc-ibm_pak
+    sudo chown root:root /usr/local/bin/oc-ibm_pak
+
+    #download IBM cloudctl
+    wget https://github.com/IBM/cloud-pak-cli/releases/download/v3.23.5/cloudctl-linux-amd64.tar.gz
+
+    #install ibmcloudctl CLI
+    tar -xf cloudctl-linux-amd64.tar.gz
+    sudo mv cloudctl-linux-amd64 /usr/local/bin/cloudctl
+    sudo chown root:root /usr/local/bin/cloudctl
+    
+    #remove install dir
+    cd $cdir
+    sudo rm -rf $INSTALL_DIR   
+}

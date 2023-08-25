@@ -3,13 +3,14 @@
 #env variables
 #check latest python: https://www.python.org
 PYTHON_VERSION=3.11.4
+
 #IBM Cloud CLI https://cloud.ibm.com/docs/cli
-#check latest release
 #https://github.com/IBM-Cloud/ibm-cloud-cli-release/releases/
 IBMCLOUD_VERSION=2.18.0
-#check latest versions
+
 #https://mirror.openshift.com/pub/openshift-v4/clients/ocp/
 OPENSHIFT_CLIENT_VERSION=4.12.27
+
 #check available by listing what are possible to install
 #dnf install java-*devel
 #JAVA_VERSION=java-1.8.0
@@ -19,6 +20,9 @@ JAVA_VERSION=java-17
 #check latest Maven version https://maven.apache.org/download.cgi
 MAVEN_VERSION=3.9.4
 
+#IBM Cloud Pak plugin
+#https://github.com/IBM/ibm-pak
+IBMCLOUDPAKPLUGIN_VERSION=1.9.0
 
 #source all functions
 for f in /setup/tool/*sh; do source $f; done
@@ -37,6 +41,7 @@ function help
     echo "  entertainment-install    - Install various entertaining software."
     echo "  ffmpeg-install           - Install ffmpeg tool."
     echo "  ibmcloud-install         - Install IBM Cloud CLI (${IBMCLOUD_VERSION}) client with all plugins."
+    echo "  ibmpakplugin-install     - Install IBM Cloud Pak oc-plugin (${IBMCLOUDPAKPLUGIN_VERSION}) and deprecated cloudctl CLI."
     echo "  imagemagick-install      - Install imagemagick tool."
     echo "  java-install             - Install Java (${JAVA_VERSION}) from dnf repository."
     echo "  jupyter-install          - Install JupyterLab."
@@ -94,6 +99,9 @@ case "$1" in
     ;;
     ibmcloud-install)
         install-ibmcloud-cli $IBMCLOUD_VERSION
+    ;;
+    ibmpakplugin-install)
+        install-cloudpakplugin $IBMCLOUDPAKPLUGIN_VERSION
     ;;
     openshift-client-install)
         downloadOpenShiftClient openshift-client-linux.tar.gz
