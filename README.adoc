@@ -72,6 +72,16 @@ For example, devcon-tool is used to:
 
 See `devcon-tool help` inside the container.
 
+== Downloading files
+
+If you use devcon WeTTY and you need to download files, use 
+
+```
+wetty-download <file> 
+```
+
+To download file. See https://butlerx.github.io/wetty/downloading-files. 
+
 == Environment variables
 
 .Environment variables that can be used when starting the container.

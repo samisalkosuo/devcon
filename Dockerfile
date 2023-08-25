@@ -49,6 +49,8 @@ COPY setup/tool/ /setup/tool/
 COPY setup/devcon-shell /setup/
 #copy tool-script
 COPY setup/devcon-tool /usr/local/bin/
+#add helper functions
+COPY setup/functions/*sh /setup/functions/
 
 #run commands
 RUN chmod 755 /usr/local/bin/*sh && \

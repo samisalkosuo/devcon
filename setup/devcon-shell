@@ -69,6 +69,9 @@ if [ "$DEVCON_START_TMUX" = "false" ]; then
   cat $__startupInfoFile
 fi 
 
+#add functions for devcon-user
+echo "for f in /setup/functions/*sh; do source \$f; done" >> /$DEVCON_USER_HOME/.bashrc
+
 function createCertificate
 {
   echo "Creating new certificate for WeTTY..."
