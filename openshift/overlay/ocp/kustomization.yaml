@@ -1,5 +1,5 @@
 namespace: devcon-ocp
 resources:
 - ../../base
-patchesStrategicMerge:
+patches:
 - deployment.yaml
