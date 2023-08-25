@@ -1,0 +1,42 @@
+kind: SecurityContextConstraints
+metadata:
+  annotations:
+    kubernetes.io/description: 'privileged allows access to all privileged and host
+      features and the ability to run as any user, any group, any fsGroup, and with
+      any SELinux context.  WARNING: this is the most relaxed SCC and should be used
+      only for cluster administration. Grant with caution.'
+  creationTimestamp: null
+  name: devcon-privileged-scc
+  namespace: devcon
+  annotations:
+    argocd.argoproj.io/sync-wave: "-8"
+allowHostDirVolumePlugin: true
+allowHostIPC: true
+allowHostNetwork: true
+allowHostPID: true
+allowHostPorts: true
+allowPrivilegedContainer: true
+allowedCapabilities: 
+- '*'
+apiVersion: security.openshift.io/v1
+defaultAddCapabilities: [] 
+fsGroup: 
+  type: RunAsAny
+groups: 
+- system:cluster-admins
+- system:nodes
+priority: null
+readOnlyRootFilesystem: false
+requiredDropCapabilities: [] 
+runAsUser: 
+  type: RunAsAny
+seLinuxContext: 
+  type: RunAsAny
+seccompProfiles:
+- '*'
+supplementalGroups: 
+  type: RunAsAny
+users: 
+- system:serviceaccount:default:devcon-sa
+volumes:
+- '*'

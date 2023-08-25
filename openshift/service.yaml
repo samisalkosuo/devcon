@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: devcon-wetty-service
+  namespace: devcon
+  annotations:
+    argocd.argoproj.io/sync-wave: "-5"
+spec:
+  selector:
+    app: devcon
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 3000

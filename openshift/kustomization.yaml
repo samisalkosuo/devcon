@@ -1,0 +1,16 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: devcon2
+resources:
+- deployment.yaml
+- namespace.yaml
+- pvc-should-be-created-manually.yaml
+- role.yaml
+- rolebinding.yaml
+- route.yaml
+- scc.yaml
+- service-account.yaml
+- service.yaml
+commonAnnotations:
+  argocd.argoproj.io/compare-options: IgnoreExtraneous
+  

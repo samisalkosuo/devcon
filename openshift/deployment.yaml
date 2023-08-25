@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: devcon-deployment
+  namespace: devcon
+  labels:
+    app: devcon
+  annotations:
+    argocd.argoproj.io/sync-wave: "-6"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: devcon
+  template:
+    metadata:
+      labels:
+        app: devcon
+    spec:
+      serviceAccountName: devcon-sa
+      serviceAccount: devcon-sa
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: devcon-data
+      containers:
+      - name: devcon
+        image: kazhar/devcon:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 3000
+        env:
+        - name: DEVCON_START_WETTY
+          value: "true"
+        - name: DEVCON_USER_PASSWORD
+          value: "my0penLDAP!#&"
+        volumeMounts:
+          - name: data
+            mountPath: /devcon/data
+        securityContext:
+#          runAsUser: 24816
+          privileged: true
+          # runAsNonRoot: true
+          # readOnlyRootFilesystem: false
+          # allowPrivilegeEscalation: true
+          # seccompProfile:
+          #   type: "RuntimeDefault"
+          #   # or "Localhost"
+          # capabilities:
+          #   drop:
+          #   - "ALL"

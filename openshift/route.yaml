@@ -1,0 +1,18 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: devcon-wetty-service
+  namespace: devcon
+  annotations:
+    argocd.argoproj.io/sync-wave: "-4"
+spec:
+  to:
+    kind: Service
+    name: devcon-wetty-service
+    weight: 100
+  port:
+    targetPort: 3000
+  tls:
+    termination: passthrough
+    insecureEdgeTerminationPolicy: Redirect
+  wildcardPolicy: None

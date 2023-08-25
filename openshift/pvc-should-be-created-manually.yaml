@@ -1,0 +1,16 @@
+#this PVC should be create manually
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: devcon-data
+  namespace: devcon
+  annotations:
+    argocd.argoproj.io/sync-wave: "-20"
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Gi
+  storageClassName: rook-ceph-fs
+  volumeMode: Filesystem
