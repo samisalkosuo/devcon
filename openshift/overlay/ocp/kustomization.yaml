@@ -2,4 +2,9 @@ namespace: devcon-ocp
 resources:
 - ../../base
 patches:
-- deployment.yaml
+- target: 
+    group: apps
+    version: v1
+    kind: Deployment
+    name: devcon-deployment
+  path: deployment-patch.yaml
