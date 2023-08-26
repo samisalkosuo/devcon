@@ -10,6 +10,11 @@ WORKDIR /setup
 COPY setup/base/dnf-install.sh ./
 RUN sh -e dnf-install.sh
 
+#install packages using rpm
+COPY setup/base/rpm-install.sh ./
+COPY setup/base/rpm/* ./rpm/
+RUN sh -e rpm-install.sh
+
 #create user
 COPY setup/base/create-user.sh ./
 RUN sh -e create-user.sh

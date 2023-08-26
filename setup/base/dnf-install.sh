@@ -72,7 +72,11 @@ dnf -y install --enablerepo=epel-testing $PACKAGES
 
 dnf -y group install "Development Tools"
 
-dnf -y install --nogpgcheck https://dl.fedoraproject.org/pub/epel/epel-release-latest-$(rpm -E %rhel).noarch.rpm
+#moved to rpm-install.sh because sometimes download gets 403 error
+#dnf -y install \
+#    https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm \
+#    https://dl.fedoraproject.org/pub/epel/epel-next-release-latest-9.noarch.rpm
+#dnf -y install --nogpgcheck https://dl.fedoraproject.org/pub/epel/epel-release-latest-$(rpm -E %rhel).noarch.rpm
 #dnf -y install --nogpgcheck https://mirrors.rpmfusion.org/free/el/rpmfusion-free-release-$(rpm -E %rhel).noarch.rpm https://mirrors.rpmfusion.org/nonfree/el/rpmfusion-nonfree-release-$(rpm -E %rhel).noarch.rpm
 
 #install packages from repository
