@@ -46,6 +46,7 @@ function help
     echo "  java-install             - Install Java (${JAVA_VERSION}) from dnf repository."
     echo "  jupyter-install          - Install JupyterLab."
     echo "  jupyter-start            - Start JupyterLab, listening on port 8888."
+    echo "  kubeterminal-install     - Install KubeTerminal."
     echo "  maven-install            - Install Maven (${MAVEN_VERSION})."
     echo "  openshift-client-install - Install OpenShift (${OPENSHIFT_CLIENT_VERSION}) clients (oc, openshift-install, etc.)."
     echo "  python-install           - Install Python (${PYTHON_VERSION}) from source."
@@ -135,6 +136,9 @@ case "$1" in
         echo "  cmatrix"
         echo "  rain"
 
+    ;;
+    kubeterminal-install)
+        install-kubeterminal
     ;;
     help)
         help
