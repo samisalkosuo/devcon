@@ -118,8 +118,13 @@ case "$1" in
     maven-install)
         #install Maven
         install-maven $MAVEN_VERSION
-        echo "Set PATH in the current shell:"
+        export PATH=$PATH:/usr/local/bin/apache-maven-$MAVEN_VERSION/bin
+        #setup maven, download recent artifacts based on dummy project
+        setup-maven
+        echo ""
+        echo "Open a new shell or sdet PATH in the current shell:"
         echo "export PATH=\$PATH:/usr/local/bin/apache-maven-$MAVEN_VERSION/bin"
+
     ;;
     python-install)
         #install python from source

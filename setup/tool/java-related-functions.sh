@@ -39,3 +39,9 @@ function install-maven
 
 }
 
+function setup-maven
+{
+    cd /tmp
+    #setup dummy app in order to download dependencies
+    mvn archetype:generate -DgroupId=com.mycompany.app -DartifactId=dummy-maven-project -DarchetypeArtifactId=maven-archetype-quickstart -DarchetypeVersion=1.4 -DinteractiveMode=false
+}
