@@ -44,7 +44,9 @@ RUN sh -e pid1-install.sh
 COPY setup/base/tmux-config.sh ./
 RUN sh -e tmux-config.sh
 
-#copy files
+#misc installs
+COPY setup/base/misc-install.sh ./
+RUN sh -e misc-install.sh
 
 #add helper scripts
 COPY setup/scripts/*sh /usr/local/bin/
