@@ -6,7 +6,7 @@ PYTHON_VERSION=3.11.4
 
 #IBM Cloud CLI https://cloud.ibm.com/docs/cli
 #https://github.com/IBM-Cloud/ibm-cloud-cli-release/releases/
-IBMCLOUD_VERSION=2.18.0
+IBMCLOUD_VERSION=2.19.1
 
 #https://mirror.openshift.com/pub/openshift-v4/clients/ocp/
 OPENSHIFT_CLIENT_VERSION=4.12.27
