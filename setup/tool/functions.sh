@@ -101,3 +101,11 @@ function install-cloudpakplugin
     cd $cdir
     sudo rm -rf $INSTALL_DIR   
 }
+
+function install-argocd
+{
+    curl -sSL -o argocd-linux-amd64 https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
+    install -m 555 argocd-linux-amd64 /usr/local/bin/argocd
+    rm -f argocd-linux-amd64
+
+}
