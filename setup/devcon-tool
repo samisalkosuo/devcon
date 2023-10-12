@@ -24,6 +24,10 @@ MAVEN_VERSION=3.9.4
 #https://github.com/IBM/ibm-pak
 IBMCLOUDPAKPLUGIN_VERSION=1.9.0
 
+#Ruby
+#check latest version: https://www.ruby-lang.org/en/downloads/
+RUBY_VERSION=3.2.2
+
 #source all functions
 for f in /setup/tool/*sh; do source $f; done
 
@@ -38,6 +42,8 @@ function help
     echo "Commands:"
     echo ""
     echo "  help                     - This help."
+    echo "  argocd-install           - Install latest Argo CD CLI."
+    echo "  asciidoctor-install      - Install latest asciidoctor (requires Ruby)."
     echo "  entertainment-install    - Install various entertaining software."
     echo "  ffmpeg-install           - Install ffmpeg tool."
     echo "  ibmcloud-install         - Install IBM Cloud CLI (${IBMCLOUD_VERSION}) client with all plugins."
@@ -48,8 +54,10 @@ function help
     echo "  jupyter-start            - Start JupyterLab, listening on port 8888."
     echo "  kubeterminal-install     - Install KubeTerminal."
     echo "  maven-install            - Install Maven (${MAVEN_VERSION})."
+    echo "  mongosh-install          - Install mongosh-client."    
     echo "  openshift-client-install - Install OpenShift (${OPENSHIFT_CLIENT_VERSION}) clients (oc, openshift-install, etc.)."
     echo "  python-install           - Install Python (${PYTHON_VERSION}) from source."
+    echo "  ruby-install             - Install Ruby (${RUBY_VERSION}) from source."
     echo ""
     exit 1
 }
@@ -144,6 +152,18 @@ case "$1" in
     ;;
     kubeterminal-install)
         install-kubeterminal
+    ;;
+    argocd-install)
+        install-argocd
+    ;;
+    ruby-install)
+        install-ruby $RUBY_VERSION
+    ;;
+    asciidoctor-install)
+        install-asciidoctor
+    ;;
+    mongosh-install)
+        install-mongosh
     ;;
     help)
         help

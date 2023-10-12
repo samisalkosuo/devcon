@@ -1,5 +1,16 @@
 #functions
 
+function getShortVersion
+{
+    local version=$1
+
+    read major minor patch < <(echo $version | ( IFS=".$IFS" ; read a b c && echo $a $b $c ))
+
+    # Then you can use them like:
+    echo $major.$minor
+
+}
+
 function install-ibmcloud-cli
 {
     local IBMCLOUD_VERSION=$1
@@ -104,8 +115,54 @@ function install-cloudpakplugin
 
 function install-argocd
 {
-    curl -sSL -o argocd-linux-amd64 https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
-    install -m 555 argocd-linux-amd64 /usr/local/bin/argocd
-    rm -f argocd-linux-amd64
+    echo "Installing argocd..."
 
+    curl -sSL -o argocd-linux-amd64 https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
+    sudo install -m 555 argocd-linux-amd64 /usr/local/bin/argocd
+    sudo rm -f argocd-linux-amd64
+    echo "Installing argocd...done."
+}
+
+function install-ruby
+{
+    #install ruby from source
+
+    local RUBY_VERSION=$1
+    RUBY_VERSION_SHORT=$(getShortVersion $RUBY_VERSION)
+
+    INSTALL_DIR=ruby-install
+    mkdir -p $INSTALL_DIR
+    cdir=$(pwd)
+    cd $INSTALL_DIR
+
+    wget https://cache.ruby-lang.org/pub/ruby/${RUBY_VERSION_SHORT}/ruby-${RUBY_VERSION}.tar.gz
+
+    tar -xf ruby-${RUBY_VERSION}.tar.gz
+    rm -f ruby-${RUBY_VERSION}.tar.gz
+
+    cd ruby-$RUBY_VERSION
+
+    ./configure --prefix=/usr/local
+    make
+    sudo make install
+
+    #remove install dir
+    cd $cdir
+    rm -rf $INSTALL_DIR
+
+}
+
+function install-mongosh
+{
+    sudo bash -c 'cat > /etc/yum.repos.d/mongodb-org-7.0.repo  << EOF
+[mongodb-org-7.0]
+name=MongoDB Repository
+baseurl=https://repo.mongodb.org/yum/redhat/\$releasever/mongodb-org/7.0/\$basearch/
+gpgcheck=1
+enabled=1
+gpgkey=https://www.mongodb.org/static/pgp/server-7.0.asc
+EOF'
+
+    sudo dnf -y install mongodb-mongosh
+    
 }

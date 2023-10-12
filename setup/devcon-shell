@@ -70,7 +70,8 @@ if [ "$DEVCON_START_TMUX" = "false" ]; then
 fi 
 
 #add functions for devcon-user
-echo "for f in /setup/functions/*sh; do source \$f; done" >> /$DEVCON_USER_HOME/.bashrc
+echo "for f in /setup/functions/*sh; do source \$f; done" >> $DEVCON_USER_HOME/.bashrc
+source $DEVCON_USER_HOME/.bashrc
 
 #add /usr/local/bin to root .bashrc
 sudo bash -c "echo \"export PATH=/usr/local/bin/:\$PATH\" >> /root/.bashrc "
@@ -93,10 +94,17 @@ function createCertificate
 
 }
 
+#4.10.2023, using Podman 4.6.2 on Windows: DNS resolution fails
+#add DNS to resolv.conf
+sudo bash -c "echo nameserver 8.8.8.8 >> /etc/resolv.conf"
+
 #if custom SAN, then create certificate for WeTTY
 if [[ -v DEVCON_DNS_SAN ]] || [[ -v DEVCON_IP_SAN ]]; then
   createCertificate
 fi
+
+#setup functions
+setupBashProfile
 
 if [ "$DEVCON_START_WETTY" = "true" ]; then
     echo "Starting WeTTY on port 3000..."
