@@ -57,6 +57,11 @@ perl-NKF
 nmstate
 pip
 cmake
+gdbm
+gdbm-devel
+libyaml-devel
+readline-devel
+libedit-devel
 """
 
 dnf -y install epel-release

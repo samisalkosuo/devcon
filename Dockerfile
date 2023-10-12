@@ -1,6 +1,8 @@
 #devcon base dockerfile
 FROM docker.io/rockylinux/rockylinux:9.2
 
+#user name and home directory
+#not meant to be changed
 ENV DEVCON_USER=devcon
 ENV DEVCON_USER_HOME=/devcon
 
@@ -63,8 +65,9 @@ COPY setup/functions/*sh /setup/functions/
 RUN chmod 755 /usr/local/bin/*sh && \
     chown $DEVCON_USER:$DEVCON_USER -R $DEVCON_USER_HOME && \
     chmod 755 /setup/devcon-shell && \
-    chmod 755 /usr/local/bin/devcon-tool
-
+    chmod 755 /usr/local/bin/devcon-tool && \
+    chmod 755 /setup/tool/*sh
+    
 WORKDIR $DEVCON_USER_HOME
 USER $DEVCON_USER
 
