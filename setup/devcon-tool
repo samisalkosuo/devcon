@@ -28,6 +28,8 @@ IBMCLOUDPAKPLUGIN_VERSION=1.9.0
 #check latest version: https://www.ruby-lang.org/en/downloads/
 RUBY_VERSION=3.2.2
 
+POSTEGRESQL_VERSION=16
+
 #source all functions
 for f in /setup/tool/*sh; do source $f; done
 
@@ -41,23 +43,24 @@ function help
     echo ""
     echo "Commands:"
     echo ""
-    echo "  help                     - This help."
-    echo "  argocd-install           - Install latest Argo CD CLI."
-    echo "  asciidoctor-install      - Install latest asciidoctor (requires Ruby)."
-    echo "  entertainment-install    - Install various entertaining software."
-    echo "  ffmpeg-install           - Install ffmpeg tool."
-    echo "  ibmcloud-install         - Install IBM Cloud CLI (${IBMCLOUD_VERSION}) client with all plugins."
-    echo "  ibmpakplugin-install     - Install IBM Cloud Pak oc-plugin (${IBMCLOUDPAKPLUGIN_VERSION}) and deprecated cloudctl CLI."
-    echo "  imagemagick-install      - Install imagemagick tool."
-    echo "  java-install             - Install Java (${JAVA_VERSION}) from dnf repository."
-    echo "  jupyter-install          - Install JupyterLab."
-    echo "  jupyter-start            - Start JupyterLab, listening on port 8888."
-    echo "  kubeterminal-install     - Install KubeTerminal."
-    echo "  maven-install            - Install Maven (${MAVEN_VERSION})."
-    echo "  mongosh-install          - Install mongosh-client."    
-    echo "  openshift-client-install - Install OpenShift (${OPENSHIFT_CLIENT_VERSION}) clients (oc, openshift-install, etc.)."
-    echo "  python-install           - Install Python (${PYTHON_VERSION}) from source."
-    echo "  ruby-install             - Install Ruby (${RUBY_VERSION}) from source."
+    echo "  help                      - This help."
+    echo "  argocd-install            - Install latest Argo CD CLI."
+    echo "  asciidoctor-install       - Install latest asciidoctor (requires Ruby)."
+    echo "  entertainment-install     - Install various entertaining software."
+    echo "  ffmpeg-install            - Install ffmpeg tool."
+    echo "  ibmcloud-install          - Install IBM Cloud CLI (${IBMCLOUD_VERSION}) client with all plugins."
+    echo "  ibmpakplugin-install      - Install IBM Cloud Pak oc-plugin (${IBMCLOUDPAKPLUGIN_VERSION}) and deprecated cloudctl CLI."
+    echo "  imagemagick-install       - Install imagemagick tool."
+    echo "  java-install              - Install Java (${JAVA_VERSION}) from dnf repository."
+    echo "  jupyter-install           - Install JupyterLab."
+    echo "  jupyter-start             - Start JupyterLab, listening on port 8888."
+    echo "  kubeterminal-install      - Install KubeTerminal."
+    echo "  maven-install             - Install Maven (${MAVEN_VERSION})."
+    echo "  mongosh-install           - Install mongosh-client."    
+    echo "  openshift-client-install  - Install OpenShift (${OPENSHIFT_CLIENT_VERSION}) clients (oc, openshift-install, etc.)."
+    echo "  postgresql-client-install - Install Postgresql client (${POSTEGRESQL_VERSION})."
+    echo "  python-install            - Install Python (${PYTHON_VERSION}) from source."
+    echo "  ruby-install              - Install Ruby (${RUBY_VERSION}) from source."
     echo ""
     exit 1
 }
@@ -164,6 +167,9 @@ case "$1" in
     ;;
     mongosh-install)
         install-mongosh
+    ;;
+    postgresql-client-install)
+        install-postgresql-client $POSTEGRESQL_VERSION
     ;;
     help)
         help
