@@ -106,12 +106,20 @@ fi
 #setup functions
 setupBashProfile
 
+
+
 if [ "$DEVCON_START_WETTY" = "true" ]; then
     echo "Starting WeTTY on port 3000..."
     source /etc/profile
     pid1 wetty --log-level info --host 0.0.0.0 --port 3000 --title WeTTY --base / --ssl-key ~/.ssl/wetty.key --ssl-cert ~/.ssl/wetty.crt
 else 
+  if [ "$DEVCON_ON_KUBERNETES" = "true" ]; then
+    #if starting on kubernetes, do infinite loop 
+    echo "devcon started."
+    exec /bin/bash -c "trap : TERM INT; sleep infinity & wait"
+  else
     #exec /bin/bash -l
     #su -l $DEVCON_USER
     exec /bin/bash -l $__start_command
+  fi
 fi
