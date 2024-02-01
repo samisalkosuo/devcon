@@ -1,5 +1,5 @@
 #devcon base dockerfile
-FROM docker.io/rockylinux/rockylinux:9.2
+FROM docker.io/rockylinux/rockylinux:9.3
 
 #user name and home directory
 #not meant to be changed

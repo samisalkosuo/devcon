@@ -98,6 +98,11 @@ To download file. See https://butlerx.github.io/wetty/downloading-files.
 |
 |List of custom IP SANs for WeTTY certificate.
 
+|DEVCON_ON_KUBERNETES
+|true\|false
+|false
+|Set to true when running on Kubernetes.
+
 |DEVCON_RANDOM_USER_PASSWORD
 |true\|false
 |false
@@ -145,3 +150,86 @@ The container uses or might use various ports.
 
 
 |===
+
+== OpenShift
+
+openshift-directory includes YAML files that can be used to install devcon on OpenShift.
+
+Alternatively, follow these instructions.
+
+* Create new project.
+
+```
+oc new-project devcon
+```
+
+* Add privileged policy default service account.
+
+```
+oc adm policy add-scc-to-user privileged -z default
+```
+
+* Create new persistent volume claim.
+
+```
+cat << EOF | oc apply -f -
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: devcon-data
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 50Gi
+  #uncomment and add your strorageclass
+  #storageClassName: rook-ceph-fs
+  volumeMode: Filesystem
+EOF
+```
+
+* Create devcon deployment.
+
+```
+cat << EOF | oc apply -f -
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: devcon-deployment
+  labels:
+    app: devcon
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: devcon
+  template:
+    metadata:
+      labels:
+        app: devcon
+    spec:
+      containers:
+      - name: devcon
+        image: kazhar/devcon:latest
+        imagePullPolicy: Always
+        env:
+        - name: DEVCON_ON_KUBERNETES
+          value: "true"
+        volumeMounts:
+        - name: data
+          mountPath: /devcon/data
+        securityContext:
+          privileged: true
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: devcon-data
+EOF
+```
+* Open terminal in devcon-pod.
+```
+oc exec -it <pod-name> -- bash
+```
+* Open terminal in devcon-pod.
+* In the pod, use /devcon/data for persistence.
