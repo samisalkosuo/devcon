@@ -31,6 +31,9 @@ RUBY_VERSION=3.3.0
 #PostgreSQL, https://www.postgresql.org/
 POSTEGRESQL_VERSION=16
 
+#ImageMagic version, https://github.com/ImageMagick/ImageMagick/releases
+IMAGEMAGICK_VERSION=7.1.1-27
+ 
 #source all functions
 for f in /setup/tool/*sh; do source $f; done
 
@@ -47,11 +50,12 @@ function help
     echo "  help                      - This help."
     echo "  argocd-install            - Install latest Argo CD CLI."
     echo "  asciidoctor-install       - Install latest asciidoctor (requires Ruby)."
+    echo "  clang-install             - Install gcc, clang and make."
     echo "  entertainment-install     - Install various entertaining software."
     echo "  ffmpeg-install            - Install ffmpeg tool."
     echo "  ibmcloud-install          - Install IBM Cloud CLI (${IBMCLOUD_VERSION}) client with all plugins."
     echo "  ibmpakplugin-install      - Install IBM Cloud Pak oc-plugin (${IBMCLOUDPAKPLUGIN_VERSION}) and deprecated cloudctl CLI."
-    echo "  imagemagick-install       - Install imagemagick tool."
+    echo "  imagemagick-install       - Install imagemagick (${IMAGEMAGICK_VERSION}) from source."
     echo "  java-install              - Install Java (${JAVA_VERSION}) from dnf repository."
     echo "  jupyter-install           - Install JupyterLab."
     echo "  jupyter-start             - Start JupyterLab, listening on port 8888."
@@ -101,7 +105,7 @@ case "$1" in
         sudo dnf -y install ffmpeg*
     ;;
     imagemagick-install)
-        sudo dnf -y install ImageMagick ImageMagick-devel
+        install-imagemagick $IMAGEMAGICK_VERSION
     ;;    
     jupyter-install)
         pip install jupyterlab
@@ -171,6 +175,9 @@ case "$1" in
     ;;
     postgresql-client-install)
         install-postgresql-client $POSTEGRESQL_VERSION
+    ;;
+    clang-install)
+        sudo dnf -y install gcc clang make
     ;;
     help)
         help

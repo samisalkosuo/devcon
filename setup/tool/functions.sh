@@ -181,3 +181,31 @@ function install-postgresql-client
     sudo dnf install -y postgresql$VERSION
 
 }
+
+#install imagemagic from source
+#see https://www.linuxcapable.com/how-to-install-imagemagick-on-rocky-linux/
+function install-imagemagick
+{
+    local VERSION=$1
+    local INSTALL_DIR=imagemagick-install
+    mkdir -p $INSTALL_DIR
+    local cdir=$(pwd)
+    cd $INSTALL_DIR
+
+    wget https://github.com/ImageMagick/ImageMagick/archive/refs/tags/${VERSION}.tar.gz
+    tar -xf ${VERSION}.tar.gz
+
+    sudo mv ImageMagick-*.* /usr/local/share/imagemagick
+    cd /usr/local/share/imagemagick
+    
+    ./configure
+    make
+    sudo make install
+    
+    sudo ldconfig /usr/local/share/imagemagick
+
+    #remove install dir
+    cd $cdir
+    rm -rf $INSTALL_DIR
+
+}
