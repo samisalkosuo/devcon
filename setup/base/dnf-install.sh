@@ -62,6 +62,7 @@ gdbm-devel
 libyaml-devel
 readline-devel
 libedit-devel
+podman
 """
 
 dnf -y install epel-release
