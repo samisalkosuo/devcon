@@ -2,14 +2,14 @@
 
 #env variables
 #check latest python: https://www.python.org
-PYTHON_VERSION=3.11.4
+PYTHON_VERSION=3.12.1
 
 #IBM Cloud CLI https://cloud.ibm.com/docs/cli
 #https://github.com/IBM-Cloud/ibm-cloud-cli-release/releases/
-IBMCLOUD_VERSION=2.19.1
+IBMCLOUD_VERSION=2.22.1
 
 #https://mirror.openshift.com/pub/openshift-v4/clients/ocp/
-OPENSHIFT_CLIENT_VERSION=4.12.27
+OPENSHIFT_CLIENT_VERSION=4.12.45
 
 #check available by listing what are possible to install
 #dnf install java-*devel
@@ -22,12 +22,13 @@ MAVEN_VERSION=3.9.4
 
 #IBM Cloud Pak plugin
 #https://github.com/IBM/ibm-pak
-IBMCLOUDPAKPLUGIN_VERSION=1.9.0
+IBMCLOUDPAKPLUGIN_VERSION=1.12.0
 
 #Ruby
 #check latest version: https://www.ruby-lang.org/en/downloads/
-RUBY_VERSION=3.2.2
+RUBY_VERSION=3.3.0
 
+#PostgreSQL, https://www.postgresql.org/
 POSTEGRESQL_VERSION=16
 
 #source all functions
