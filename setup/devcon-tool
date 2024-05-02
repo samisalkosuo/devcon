@@ -2,37 +2,38 @@
 
 #env variables
 #check latest python: https://www.python.org
-PYTHON_VERSION=3.12.1
+PYTHON_VERSION=3.12.3
 
 #IBM Cloud CLI https://cloud.ibm.com/docs/cli
 #https://github.com/IBM-Cloud/ibm-cloud-cli-release/releases/
-IBMCLOUD_VERSION=2.22.1
+IBMCLOUD_VERSION=2.24.0
 
 #https://mirror.openshift.com/pub/openshift-v4/clients/ocp/
-OPENSHIFT_CLIENT_VERSION=4.12.45
+OPENSHIFT_CLIENT_VERSION=4.14.20
 
 #check available by listing what are possible to install
 #dnf install java-*devel
 #JAVA_VERSION=java-1.8.0
 #JAVA_VERSION=java-11
-JAVA_VERSION=java-17
+#JAVA_VERSION=java-17
+JAVA_VERSION=java-21
 
 #check latest Maven version https://maven.apache.org/download.cgi
-MAVEN_VERSION=3.9.4
+MAVEN_VERSION=3.9.6
 
 #IBM Cloud Pak plugin
 #https://github.com/IBM/ibm-pak
-IBMCLOUDPAKPLUGIN_VERSION=1.12.0
+IBMCLOUDPAKPLUGIN_VERSION=1.14.1
 
 #Ruby
 #check latest version: https://www.ruby-lang.org/en/downloads/
-RUBY_VERSION=3.3.0
+RUBY_VERSION=3.3.1
 
 #PostgreSQL, https://www.postgresql.org/
 POSTEGRESQL_VERSION=16
 
 #ImageMagic version, https://github.com/ImageMagick/ImageMagick/releases
-IMAGEMAGICK_VERSION=7.1.1-27
+IMAGEMAGICK_VERSION=7.1.1-31
  
 #source all functions
 for f in /setup/tool/*sh; do source $f; done
@@ -48,24 +49,24 @@ function help
     echo "Commands:"
     echo ""
     echo "  help                      - This help."
-    echo "  argocd-install            - Install latest Argo CD CLI."
-    echo "  asciidoctor-install       - Install latest asciidoctor (requires Ruby)."
-    echo "  clang-install             - Install gcc, clang and make."
-    echo "  entertainment-install     - Install various entertaining software."
-    echo "  ffmpeg-install            - Install ffmpeg tool."
-    echo "  ibmcloud-install          - Install IBM Cloud CLI (${IBMCLOUD_VERSION}) client with all plugins."
-    echo "  ibmpakplugin-install      - Install IBM Cloud Pak oc-plugin (${IBMCLOUDPAKPLUGIN_VERSION}) and deprecated cloudctl CLI."
-    echo "  imagemagick-install       - Install imagemagick (${IMAGEMAGICK_VERSION}) from source."
-    echo "  java-install              - Install Java (${JAVA_VERSION}) from dnf repository."
-    echo "  jupyter-install           - Install JupyterLab."
-    echo "  jupyter-start             - Start JupyterLab, listening on port 8888."
-    echo "  kubeterminal-install      - Install KubeTerminal."
-    echo "  maven-install             - Install Maven (${MAVEN_VERSION})."
-    echo "  mongosh-install           - Install mongosh-client."    
-    echo "  openshift-client-install  - Install OpenShift (${OPENSHIFT_CLIENT_VERSION}) clients (oc, openshift-install, etc.)."
-    echo "  postgresql-client-install - Install Postgresql client (${POSTEGRESQL_VERSION})."
-    echo "  python-install            - Install Python (${PYTHON_VERSION}) from source."
-    echo "  ruby-install              - Install Ruby (${RUBY_VERSION}) from source."
+    echo "  install-argocd            - Install latest Argo CD CLI."
+    echo "  install-asciidoctor       - Install latest asciidoctor (requires Ruby)."
+    echo "  install-clang             - Install gcc, clang and make."
+    echo "  install-entertainment     - Install various entertaining software."
+    echo "  install-ffmpeg            - Install ffmpeg tool."
+    echo "  install-ibmcloud-cli      - Install IBM Cloud CLI (${IBMCLOUD_VERSION}) client with all plugins."
+    echo "  install-ibmpakplugin      - Install IBM Cloud Pak oc-plugin (${IBMCLOUDPAKPLUGIN_VERSION}) and deprecated cloudctl CLI."
+    echo "  install-imagemagick       - Install imagemagick (${IMAGEMAGICK_VERSION}) from source."
+    echo "  install-java              - Install Java (${JAVA_VERSION}) from dnf repository."
+    echo "  install-jupyter           - Install JupyterLab."
+    echo "  start-jupyter             - Start JupyterLab, listening on port 8888."
+    echo "  install-kubeterminal      - Install KubeTerminal."
+    echo "  install-maven             - Install Maven (${MAVEN_VERSION})."
+    echo "  install-mongosh           - Install mongosh-client."    
+    echo "  install-openshift-client  - Install OpenShift (${OPENSHIFT_CLIENT_VERSION}) clients (oc, openshift-install, etc.)."
+    echo "  install-postgresql-client - Install Postgresql client (${POSTEGRESQL_VERSION})."
+    echo "  install-python            - Install Python (${PYTHON_VERSION}) from source."
+    echo "  install-ruby              - Install Ruby (${RUBY_VERSION}) from source."
     echo ""
     exit 1
 }
@@ -101,37 +102,37 @@ function Sudo {
 #note 'shift' command moves ARGS to the left 
 
 case "$1" in
-    ffmpeg-install)
+    install-ffmpeg)
         sudo dnf -y install ffmpeg*
     ;;
-    imagemagick-install)
+    install-imagemagick)
         install-imagemagick $IMAGEMAGICK_VERSION
     ;;    
-    jupyter-install)
+    install-jupyter)
         pip install jupyterlab
     ;;
-    jupyter-start)
+    start-jupyter)
         export JUPYTER_PORT=8888
         jupyter lab --ip=0.0.0.0
     ;;
-    ibmcloud-install)
+    install-ibmcloud-cli)
         install-ibmcloud-cli $IBMCLOUD_VERSION
     ;;
-    ibmpakplugin-install)
+    install-ibmpakplugin)
         install-cloudpakplugin $IBMCLOUDPAKPLUGIN_VERSION
     ;;
-    openshift-client-install)
+    install-openshift-client)
         downloadOpenShiftClient openshift-client-linux.tar.gz
         downloadOpenShiftClient openshift-install-linux.tar.gz
         downloadOpenShiftClient opm-linux.tar.gz
         downloadOpenShiftClient oc-mirror.tar.gz
         downloadOpenShiftClient ccoctl-linux.tar.gz
     ;;
-    java-install)
+    install-java)
         #install OpenJDK from repository
         install-java $JAVA_VERSION
     ;;
-    maven-install)
+    install-maven)
         #install Maven
         install-maven $MAVEN_VERSION
         export PATH=$PATH:/usr/local/bin/apache-maven-$MAVEN_VERSION/bin
@@ -142,11 +143,11 @@ case "$1" in
         echo "export PATH=\$PATH:/usr/local/bin/apache-maven-$MAVEN_VERSION/bin"
 
     ;;
-    python-install)
+    install-python)
         #install python from source
         install-python $PYTHON_VERSION
     ;;
-    entertainment-install)
+    install-entertainment)
         install-rain
         install-cmatrix
         install-2048
@@ -158,25 +159,25 @@ case "$1" in
         echo "  rain"
 
     ;;
-    kubeterminal-install)
+    install-kubeterminal)
         install-kubeterminal
     ;;
-    argocd-install)
+    install-argocd)
         install-argocd
     ;;
-    ruby-install)
+    install-ruby)
         install-ruby $RUBY_VERSION
     ;;
-    asciidoctor-install)
+    install-asciidoctor)
         install-asciidoctor
     ;;
-    mongosh-install)
+    install-mongosh)
         install-mongosh
     ;;
-    postgresql-client-install)
+    install-postgresql-client)
         install-postgresql-client $POSTEGRESQL_VERSION
     ;;
-    clang-install)
+    install-clang)
         sudo dnf -y install gcc clang make
     ;;
     help)
