@@ -107,6 +107,11 @@ fi
 setupBashProfile
 
 
+__run_as_root=""
+if [ "$DEVCON_AS_ROOT" = "true" ]; then
+    __run_as_root=sudo
+fi
+
 
 if [ "$DEVCON_START_WETTY" = "true" ]; then
     echo "Starting WeTTY on port 3000..."
@@ -120,6 +125,6 @@ else
   else
     #exec /bin/bash -l
     #su -l $DEVCON_USER
-    exec /bin/bash -l $__start_command
+    exec $__run_as_root /bin/bash -l $__start_command
   fi
 fi

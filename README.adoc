@@ -108,6 +108,11 @@ To download file. See https://butlerx.github.io/wetty/downloading-files.
 |false
 |Set random password for devcon-user.
 
+|DEVCON_AS_ROOT
+|true\|false
+|false
+|Run container as root.
+
 |DEVCON_START_SSHD
 |true\|false
 |true
