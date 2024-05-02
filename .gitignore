@@ -10,3 +10,5 @@ tmp/
 .devcon/
 .dockerignore
 secret.yaml
+.vscode/
+local-containers/
