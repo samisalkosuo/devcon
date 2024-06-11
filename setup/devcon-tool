@@ -35,6 +35,9 @@ POSTEGRESQL_VERSION=16
 #ImageMagic version, https://github.com/ImageMagick/ImageMagick/releases
 IMAGEMAGICK_VERSION=7.1.1-31
  
+#major MongoDB version (6, 7, etc.)
+MONGODB_VERSION=6
+
 #source all functions
 for f in /setup/tool/*sh; do source $f; done
 

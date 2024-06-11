@@ -154,14 +154,15 @@ function install-ruby
 
 function install-mongosh
 {
-    sudo bash -c 'cat > /etc/yum.repos.d/mongodb-org-7.0.repo  << EOF
-[mongodb-org-7.0]
+
+    sudo bash -c "cat > /etc/yum.repos.d/mongodb-org-${MONGODB_VERSION}.repo  << EOF
+[mongodb-org-${MONGODB_VERSION}.0]
 name=MongoDB Repository
-baseurl=https://repo.mongodb.org/yum/redhat/\$releasever/mongodb-org/7.0/\$basearch/
+baseurl=https://repo.mongodb.org/yum/redhat/9/mongodb-org/${MONGODB_VERSION}.0/x86_64/
 gpgcheck=1
 enabled=1
-gpgkey=https://www.mongodb.org/static/pgp/server-7.0.asc
-EOF'
+gpgkey=https://pgp.mongodb.com/server-${MONGODB_VERSION}.0.asc
+EOF"
 
     sudo dnf -y install mongodb-mongosh
     
