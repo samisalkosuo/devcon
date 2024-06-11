@@ -63,6 +63,7 @@ libyaml-devel
 readline-devel
 libedit-devel
 podman
+rsync
 """
 
 dnf -y install epel-release
