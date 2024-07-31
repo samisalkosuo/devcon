@@ -1,14 +1,13 @@
-name: Java container build and push
+#build and push base container
+
+name: Clients container build and push
 
 on:
   workflow_dispatch:
-
 jobs:
   call-container-build-and-push:
     uses: ./.github/workflows/reusable-container-build-and-push.yaml
     with:
-      tagname: java
-      dockerfile: containers/java.containerfile
+      tagname: clients
+      dockerfile: clients.dockerfile
     secrets: inherit
-      
-        

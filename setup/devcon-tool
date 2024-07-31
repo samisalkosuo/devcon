@@ -6,10 +6,10 @@ PYTHON_VERSION=3.12.3
 
 #IBM Cloud CLI https://cloud.ibm.com/docs/cli
 #https://github.com/IBM-Cloud/ibm-cloud-cli-release/releases/
-IBMCLOUD_VERSION=2.24.0
+IBMCLOUD_VERSION=2.27.0
 
 #https://mirror.openshift.com/pub/openshift-v4/clients/ocp/
-OPENSHIFT_CLIENT_VERSION=4.14.20
+OPENSHIFT_CLIENT_VERSION=4.14.33
 
 #check available by listing what are possible to install
 #dnf install java-*devel
@@ -23,7 +23,7 @@ MAVEN_VERSION=3.9.6
 
 #IBM Cloud Pak plugin
 #https://github.com/IBM/ibm-pak
-IBMCLOUDPAKPLUGIN_VERSION=1.14.1
+IBMCLOUDPAKPLUGIN_VERSION=1.15.2
 
 #Ruby
 #check latest version: https://www.ruby-lang.org/en/downloads/
