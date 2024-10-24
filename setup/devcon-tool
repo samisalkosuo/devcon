@@ -2,14 +2,14 @@
 
 #env variables
 #check latest python: https://www.python.org
-PYTHON_VERSION=3.12.3
+PYTHON_VERSION=3.13.0
 
 #IBM Cloud CLI https://cloud.ibm.com/docs/cli
 #https://github.com/IBM-Cloud/ibm-cloud-cli-release/releases/
-IBMCLOUD_VERSION=2.27.0
+IBMCLOUD_VERSION=2.29.0
 
 #https://mirror.openshift.com/pub/openshift-v4/clients/ocp/
-OPENSHIFT_CLIENT_VERSION=4.14.33
+OPENSHIFT_CLIENT_VERSION=4.14.38
 
 #check available by listing what are possible to install
 #dnf install java-*devel
@@ -19,21 +19,21 @@ OPENSHIFT_CLIENT_VERSION=4.14.33
 JAVA_VERSION=java-21
 
 #check latest Maven version https://maven.apache.org/download.cgi
-MAVEN_VERSION=3.9.6
+MAVEN_VERSION=3.9.9
 
 #IBM Cloud Pak plugin
 #https://github.com/IBM/ibm-pak
-IBMCLOUDPAKPLUGIN_VERSION=1.15.2
+IBMCLOUDPAKPLUGIN_VERSION=1.16.1
 
 #Ruby
 #check latest version: https://www.ruby-lang.org/en/downloads/
-RUBY_VERSION=3.3.1
+RUBY_VERSION=3.3.5
 
 #PostgreSQL, https://www.postgresql.org/
 POSTEGRESQL_VERSION=16
 
 #ImageMagic version, https://github.com/ImageMagick/ImageMagick/releases
-IMAGEMAGICK_VERSION=7.1.1-31
+IMAGEMAGICK_VERSION=7.1.1-39
  
 #major MongoDB version (6, 7, etc.)
 MONGODB_VERSION=6
