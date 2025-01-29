@@ -9,6 +9,7 @@ RUN devcon-tool install-argocd
 RUN devcon-tool install-mongosh
 RUN devcon-tool install-postgresql-client
 
+RUN devcon-tool install-ibmcpd-cli
 
 
 
