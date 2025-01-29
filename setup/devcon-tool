@@ -2,14 +2,19 @@
 
 #env variables
 #check latest python: https://www.python.org
-PYTHON_VERSION=3.13.0
+PYTHON_VERSION=3.13.1
 
 #IBM Cloud CLI https://cloud.ibm.com/docs/cli
 #https://github.com/IBM-Cloud/ibm-cloud-cli-release/releases/
-IBMCLOUD_VERSION=2.29.0
+IBMCLOUD_VERSION=2.31.0
+
+#IBM Cloud Pak for Data CLI
+#https://github.com/IBM/cpd-cli/releases
+IBMCPDCLI_VERSION=14.1.0
+
 
 #https://mirror.openshift.com/pub/openshift-v4/clients/ocp/
-OPENSHIFT_CLIENT_VERSION=4.14.38
+OPENSHIFT_CLIENT_VERSION=4.16.30
 
 #check available by listing what are possible to install
 #dnf install java-*devel
@@ -23,17 +28,17 @@ MAVEN_VERSION=3.9.9
 
 #IBM Cloud Pak plugin
 #https://github.com/IBM/ibm-pak
-IBMCLOUDPAKPLUGIN_VERSION=1.16.1
+IBMCLOUDPAKPLUGIN_VERSION=1.16.3
 
 #Ruby
 #check latest version: https://www.ruby-lang.org/en/downloads/
-RUBY_VERSION=3.3.5
+RUBY_VERSION=3.4.1
 
 #PostgreSQL, https://www.postgresql.org/
 POSTEGRESQL_VERSION=16
 
 #ImageMagic version, https://github.com/ImageMagick/ImageMagick/releases
-IMAGEMAGICK_VERSION=7.1.1-39
+IMAGEMAGICK_VERSION=7.1.1-43
  
 #major MongoDB version (6, 7, etc.)
 MONGODB_VERSION=6
@@ -58,6 +63,7 @@ function help
     echo "  install-entertainment     - Install various entertaining software."
     echo "  install-ffmpeg            - Install ffmpeg tool."
     echo "  install-ibmcloud-cli      - Install IBM Cloud CLI (${IBMCLOUD_VERSION}) client with all plugins."
+    echo "  install-ibmcpd-cli        - Install IBM Cloud Pak for Data CLI (${IBMCPDCLI_VERSION}) client."
     echo "  install-ibmpakplugin      - Install IBM Cloud Pak oc-plugin (${IBMCLOUDPAKPLUGIN_VERSION}) and deprecated cloudctl CLI."
     echo "  install-imagemagick       - Install imagemagick (${IMAGEMAGICK_VERSION}) from source."
     echo "  install-java              - Install Java (${JAVA_VERSION}) from dnf repository."
@@ -120,6 +126,9 @@ case "$1" in
     ;;
     install-ibmcloud-cli)
         install-ibmcloud-cli $IBMCLOUD_VERSION
+    ;;
+    install-ibmcpd-cli)
+        install-ibmcloudpakdordata-cli $IBMCPDCLI_VERSION
     ;;
     install-ibmpakplugin)
         install-cloudpakplugin $IBMCLOUDPAKPLUGIN_VERSION

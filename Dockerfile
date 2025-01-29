@@ -1,5 +1,5 @@
 #devcon base dockerfile
-FROM docker.io/rockylinux/rockylinux:9.3
+FROM docker.io/rockylinux/rockylinux:9.5
 
 #user name and home directory
 #not meant to be changed
@@ -67,7 +67,7 @@ RUN chmod 755 /usr/local/bin/*sh && \
     chmod 755 /setup/devcon-shell && \
     chmod 755 /usr/local/bin/devcon-tool && \
     chmod 755 /setup/tool/*sh
-    
+
 WORKDIR $DEVCON_USER_HOME
 USER $DEVCON_USER
 
@@ -79,4 +79,5 @@ USER $DEVCON_USER
 #save build time
 RUN date > ~/.build_time 
 
+#CMD ["/bin/bash"]
 CMD ["/setup/devcon-shell"]

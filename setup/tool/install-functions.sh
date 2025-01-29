@@ -210,3 +210,32 @@ function install-imagemagick
     rm -rf $INSTALL_DIR
 
 }
+
+function install-ibmcloudpakdordata-cli
+{
+    local IBMCPDCLI_VERSION=$1
+
+    local FILENAME=cpd-cli-linux-EE-${IBMCPDCLI_VERSION}.tgz
+
+    local INSTALL_DIR=ibmcpdcli-install
+    mkdir -p $INSTALL_DIR
+    local cdir=$(pwd)
+    cd $INSTALL_DIR
+
+    #download ibmcpd CLI
+    wget https://github.com/IBM/cpd-cli/releases/download/v${IBMCPDCLI_VERSION}/${FILENAME}
+
+    #install ibmcloud CLI
+    tar -xf ${FILENAME}
+    rm -rf ${FILENAME}
+    local cpddir=$(ls -1  |grep cpd-cli)
+    cd $cpddir
+    sudo mv cpd-cli /usr/local/bin/
+    sudo mv LICENSES /usr/local/bin/
+    sudo mv plugins /usr/local/bin/
+    
+    #remove install dir
+    cd $cdir
+    rm -rf $INSTALL_DIR
+
+}
